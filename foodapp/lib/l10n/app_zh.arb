@@ -1,0 +1,437 @@
+{
+    "selectLanguage": "选择语言",   
+     "select":"选择",
+     "indoesia": "印度尼西亚",
+"englishus":"英语（美国）",
+"thailand":"泰国",
+"chinese": "中国人",
+"settings":"设置",
+"profile": "轮廓",
+"pushNotifications":"推送通知",
+"location":"地点",
+"language":"语言",
+"other":"其他",
+"aboutticketis": "关于票务",
+"privacypolicy":"隐私政策",
+"termsandconditions":"条款和条件",
+"profileSettings":"配置文件设置",
+"albertStevanoBajefski":"阿尔伯特·斯蒂瓦诺·巴耶夫斯基",
+"albertstevanoattateofgmaildotcom":"Albertstevano@gmail.com",
+  "o888333777":"八亿八千八百三十三万三千七百七十七",
+  "burgerWithMeat":"肉汉堡",
+  "items14"  :"14 项目",
+  "signOut":"登出",
+  "pRofile": "轮廓",
+  "personalData":"个人资料",
+  "extraCard":"额外卡",
+  "support":"支持",    
+   "helpCenter":"帮助中心",
+   "requestAccountDeletion":"请求删除帐户",
+   "addanotheraccount":"添加另一个帐户t",
+   "fullname":"姓名",
+   "enterfullname":"输入全名",
+   "dateofbirth":"出生日期",
+   "enterdateofbirth":"输入出生日期",
+   "phone":"电话",
+   "enterphoneno":"输入电话号码",
+   "emailaddress":"电子邮件",
+   "enterEmail":"输入电子邮件",
+   "save":"节省",
+   "hihowwecanhelpyou":"您好，我们能为您提供什么帮助？",
+   "myorders":"我的订单",
+   "seeall":"查看全部",
+   "orderid":"订单号",
+   "inDelivery":"交付中",
+   "male":"男性",
+   "gender":"性别",
+   "female":"女性",
+   "search":"搜索",
+   "general":"一般的",
+   "basicquestionaboutRestate":"关于重述的基本问题",
+   "sellers":"卖家",
+   "allyouneedtoknowaboutsellingyourhometoRestate":"关于将房屋出售给 Restate\n您需要了解的所有信息",
+   "buyers":"买家",
+   "everythingyouneedtoknowaboutbuyingwithRestate":"关于通过 Restate 购买\n您需要了解的一切",
+   "agents":"代理商",
+   "howbuyingagentsandlistingagentscanworkwithRestate":"采购代理和挂牌代理\n如何与 Restate 合作",
+   "doyouwanttologout":"您想退出吗？",
+   "cancel":"取消",
+   "logout":"退出",
+   "creditcard":"信用卡",
+   "mastercard":"万事达s",
+   "paypal":"贝宝",
+   "applepay":"苹果支付",
+   "addnewcard":"添加新卡",
+   "confirmdelete":  "        确认删除",
+   "areyousuretodeletethiscard":"您确定要删除这张卡吗？",
+   "noIwont":"不，我不会",
+   "yesofcourse":"是的当然",
+   "cardholdername":"持卡人姓名",
+   "cardnumber":"卡号",
+   "expirydate":"到期日",
+   "digit3CVV":"3 位 CVV",
+   "savecard":"保存卡",
+   "nameoncard":"卡上的姓名",
+   "entername":"输入姓名",
+   "cardtype":"卡类型",
+   "selectcardtype":"选择卡类型",
+   "visa":"签证",
+   "cvv":"CVV",
+   "billingaddress":"帐单地址",
+   "enteraddress":"输入地址",
+   "notification":"通知",
+   "today":"今天",
+   "special30Discount":"30% 特别折扣！",
+   "specialpromotiononlyvalidtoday":"特别促销仅在今天有效",
+   "yourOrderHasBeenTakenbytheDriver":"司机已接受您的订单",
+   "recently":"最近",
+   "yourOrderHasBeenCanceled":"您的订单已取消",
+   "jun192023":"2023 年 6 月 19 日",
+   "yesterday":"昨天",
+   "specialpromotiononlyvalidyesterday":"特别促销仅在昨天有效",
+   "accountSetupSuccessful":"账户设置成功！",
+   "setupwassuccessfulyesterday":"昨天设置成功",
+   "specialOffer60Off":"特价！ 60% 折扣",
+   "specialofferfornewaccountsvaliduntil20Nov2022":"新账户特别优惠，有效期至 2022 年 11 月 20 日",
+   "creditCardConnected":"已连接信用卡",
+   "payment":"支付",
+   "youdeservebettermeal":"你值得更好的一餐",
+   "itemordered":"订购的商品",
+   "detailstransaction":"详情 交易",
+   "cherryhealthy":"樱桃健康",
+   "driver":"司机",
+   "tax10":"税10%",
+   "totalprice":"总价",
+   "delieverto":"交付至：",
+   "name":"姓名",
+   "phoneno":"电话号码",
+   "address":"地址",
+   "houseno":"房屋号码",
+   "city":"城市",
+   "checkoutnow":"立即结账",
+   "newyork":"纽约",
+   "bC54Berlin":"BC54 柏林",
+   "newyorkcity":"纽约市",
+   "weserveincomparabledelicacies":"我们为您提供无与伦比的美味佳肴",
+   "allthebestrestaurantswiththeirtopmenuwaitingforyoutheycantwaitforyourorder":" 所有最好的餐厅都有顶级\n菜单等着您，他们已经等不及\n              您的订单了！",
+   "skip":"跳过",
+   "next":"下一个",
+   "chatlist":"                                   聊天列表",
+   "allmessages":"所有消息",
+   "geopartEtdsien":"您的订单刚刚到达",
+   "stevanoClirover":"斯蒂瓦诺·克利洛弗",
+   "elisiaJustin":"埃莉西亚·贾斯汀",
+   "justtoorder":"只为订购",
+   "okayforwhatlevelofspiciness":"好的，辣度是多少？",
+   "okayWaitaminute":"好的，请稍等\n🙏",
+   "okayImwaiting":"好的，我等着🙌",
+   "typesomething":"输入一些东西...",
+   "mycart":"我的购物车",
+   "ouchHungry":"哎哟!饥饿的",
+   "seemslikeyouhavenotorderedanyfoodyet":"您似乎还没有订购\n任何食物",
+   "findfood":"寻找食物",
+   "deliverylocation":"交货地点",
+   "home":"家",
+   "changelocation":"更改地点",
+   "ordinaryburger":"普通汉堡",
+   "ordernow":"立即订购",
+   "promoCode":"促销代码。 。 。",
+   "apply":"申请",
+   "recommendedforyou":"为您推荐",
+   "paymentsummary":"付款摘要",
+   "totalItems":"总项目 (3)",
+   "deliveryFee":"运费",
+   "free":"自由的",
+   "discount":"折扣",
+   "total":"全部的",
+   "logintoyouraccount":"登录您的\n帐户。",
+   "pleasesignintoyouraccount":"请登录您的帐户",
+   "password":"密码",
+   "forgotpassword":"忘记密码?",
+   "signin":"登入",
+   "orsigninwith":"或者登录",
+   "donthaveanaccount":"没有帐户？ ",
+   "register":"登记",
+   "createyournewaccount":"创建您的新帐户",
+   "username":"用户名",
+   "enterusername":"输入用户名",
+   "iagreewith":"我同意 ",
+   "termsofserivce":"服务条款 ",
+   "and":"和 ",
+   "privacy":"隐私",
+   "policy":"政策",
+   "enteryouremailaddresandwellsendyouconfirmationcodetoresetyourpassword":"输入您的电子邮件地址，我们将向您发送确认码以重置您的密码",
+   "continuee":"继续",
+   "selectwhichcontactdetailsshouldweusetoresetyourpassword":"选择我们应使用哪些联系方式来重置您的密码",
+   "sendviaWhatsApp":"通过 WhatsApp 发送",
+   "whatsApp":"WhatsApp",
+   "sendviaEmail":"通过电子邮件发送",
+   "email":"电子邮件",
+   "otp":"一次性密码",
+   "emailverification":"电子邮件验证",
+   "entertheverificationcodewesentyouonAlbertsgmailcom":"输入我们发送给您的验证码:\nAlberts******@gmail.com",
+   "didntreceivecode":"没有收到代码？",
+   "resend":"重新发送",
+   "resetPassword":"重设密码",
+   "yournewpasswordmustbedifferentfromthepreviouslyusedpassword":"您的新密码必须与\n以前使用的密码不同",
+   "newpassword":"新密码",
+   "mustbeatleast8character":"必须至少有 8 个字符",
+   "confirmpassword":"确认密码",
+   "verifyaccount":"验证账户",
+   "passwordchanged":"密码已更改",
+   "passwordchangedsuccessfullyyoucanloginagainwithanewpassword":"密码修改成功，您可以使用新密码重新登录",
+   "providethebestfoodforyou":"为您提供最好的食物",
+   "findbyCategory":"按类别查找",
+   "beefBurger":"牛肉汉堡",
+   "burgerwithfries":"汉堡配薯条",
+   "Burger":"เบอร์เกอร์",
+   "taco":"塔科",
+   "drink":"喝s",
+  "pizza":"比萨",
+  "yourLocation":"您的位置",
+  "cart":"大车",
+  "chat":"聊天",
+  "findYourFavoriteFood":"找到你最喜欢的食物",
+  "searchSomething":"搜索某些内容",
+  "wecouldntfindanyresults":"我们找不到任何结果！",
+  "pleasecheckyoursearchforanytyposorspellingerrorsortryadifferentsearchterm":"请检查您的搜索是否有任何错别字或拼写错误，或者尝试不同的搜索词。",
+  "searchfood":"搜索食物",
+  "myrecentorder":"我的近期订单",
+  "burgerresturant":"汉堡餐厅",
+    "aboutThisMenu":"关于此菜单",
+    "burgerwithMeat":"有肉的汉堡 🍔",
+    "description":"描述",
+    "burgerWithMeatisatypicalfoodfromourrestaurantthatismuchindemandbymanypeoplethisisveryrecommendedforyou":"肉汉堡是本店的特色菜，深受大众喜爱，非常推荐给您。",
+
+                "freedelivery":"免费送货",
+                "addtocart":"添加到购物车",
+                "delieverdyourorder":"已配送您的订单",
+                "cristopertDastin":"克里斯托佩特·达斯汀",
+                      "yourDeliveryTime":"您的送货时间",
+                      "estimated830915PM":"预计晚上 8:30 - 9:15",
+                      "order":  "      命令",
+                      "burger2WithMeat": "    2 个带肉的汉堡",
+                      "recentsearches":"最近搜索",
+                      "burgers":"汉堡",
+                      "fastfood":"快餐",
+                      "french":"法语",
+                      "fastry":"法斯特里"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

@@ -1,0 +1,440 @@
+{
+    "selectLanguage":"Pilih Bahasa",
+    "select":"Memilih",
+    "indoesia": "Indonesia",
+    "englishus":"Inggris (AS)",
+    "thailand":"Thailand",
+    "chinese": "Cina",
+    "settings":"Pengaturan",
+    "profile": "PROFIL",
+    "pushNotifications":"Pemberitahuan Dorong",
+    "location":"Lokasi",
+    "language":"Bahasa",
+    "other":"LAINNYA",
+    "aboutticketis": "Tentang Tiketis",
+    "privacypolicy":"Kebijakan Privasi",
+    "termsandconditions":"syarat dan Ketentuan",
+    "profileSettings":"Pengaturan Profil",
+    "albertStevanoBajefski":"Albert Stevano Bajefski",
+      "burgerWithMeat":"Burger Dengan Daging",
+      "items14"  :"14 item"  ,
+      "signOut":"Keluar",
+      "pRofile": "Profil",
+      "personalData":"Data Pribadi",
+      "extraCard":"Kartu Ekstra",
+      "support":"Mendukung",     
+      "helpCenter":"Pusat Bantuan", 
+          "requestAccountDeletion":"Minta Penghapusan Akun",
+          "addanotheraccount":"Tambahkan akun lain",
+          "fullname":"Nama Lengkap",
+          "enterfullname":"Masukkan Nama Lengkap",
+          "dateofbirth":"Tanggal lahir",
+          "enterdateofbirth":"Masukkan Tanggal Lahir",
+          "phone":"Telepon",
+          "enterphoneno":"Masukkan No Telepon.",
+          "emailaddress":"Alamat Surel",
+          "enterEmail":"Masukkan Email",
+          "save":"Menyimpan",
+          "hihowwecanhelpyou":"Hai, ada yang bisa kami bantu?",
+          "myorders":"Pesanan saya",
+          "seeall":"Lihat Semua",
+          "orderid":"ID Pesanan",
+          "inDelivery":"Dalam Pengiriman",
+          "male":"Pria",
+          "gender":"Jenis kelamin",
+          "female":"Perempuan",
+          "search":"Mencari",
+          "general":"Umum",
+          "basicquestionaboutRestate":"Pertanyaan dasar tentang Restate",
+          "sellers":"Penjual",
+          "allyouneedtoknowaboutsellingyourhometoRestate":"Semua yang perlu Anda ketahui tentang menjual\nrumah Anda ke Restate",
+          "buyers":"Pembeli",
+          "everythingyouneedtoknowaboutbuyingwithRestate":"Semua yang perlu Anda ketahui tentang\nmembeli dengan Restate",
+          "agents":"Agen",
+          "howbuyingagentsandlistingagentscanworkwithRestate":"Bagaimana agen pembelian dan agen listing\ndapat bekerja dengan Restate",
+          "doyouwanttologout":"Apakah Anda ingin keluar?",
+          "cancel":"Membatalkan",
+          "logout":"Keluar",
+          "creditcard":"Kartu kredit",
+          "mastercard":"MasterCard",
+          "paypal":"Paypal",
+          "applepay":"pembayaran apel",
+          "addnewcard":"Tambahkan Kartu Baru",
+          "confirmdelete":  "        Konfirmasi Hapus",
+          "areyousuretodeletethiscard":"Apakah Anda yakin akan menghapus kartu ini?",
+          "noIwont":"Tidak, aku tidak akan melakukannya",
+          "yesofcourse":"Ya, tentu saja",
+          "cardholdername":"Nama Pemegang Kartu",
+          "cardnumber":"Nomor Kartu",
+          "expirydate":"Tanggal Kedaluwarsa",
+          "digit3CVV":"CVV 3 Digit",
+          "savecard":"Simpan Kartu",
+          "nameoncard":"Nama di Kartu",
+          "entername":"Masukkan Nama",
+          "cardtype":"Jenis Kartu",
+          "selectcardtype":"Pilih Jenis Kartu",
+          "visa":"Visa",
+          "cvv":"CVV",
+          "billingaddress":"Alamat Penagihan",
+          "enteraddress":"Masukkan Alamat",
+          "notification":"Pemberitahuan",
+          "today":"Hari ini",
+          "special30Discount":"Diskon Spesial 30%!",
+          "specialpromotiononlyvalidtoday":"Promosi spesial hanya berlaku hari ini",
+          "yourOrderHasBeenTakenbytheDriver":"Pesanan Anda Telah Diambil oleh Pengemudi",
+          "recently":"Baru-baru ini",
+          "yourOrderHasBeenCanceled":"Pesanan Anda Telah Dibatalkan",
+          "jun192023":"19 Juni 2023",
+          "yesterday":"Kemarin",
+          "specialpromotiononlyvalidyesterday":"Promosi spesial hanya berlaku kemarin",
+          "accountSetupSuccessful":"Pengaturan Akun Berhasil!",
+          "setupwassuccessfulyesterday":"Penyiapan berhasil kemarin",
+          "specialOffer60Off":"Penawaran khusus! Diskon 60%.",
+          "specialofferfornewaccountsvaliduntil20Nov2022":"Penawaran spesial untuk akun baru, berlaku hingga 20 Nov 2022",
+          "creditCardConnected":"Kartu Kredit Terhubung",
+          "payment":"Pembayaran",
+          "youdeservebettermeal":"Anda berhak mendapatkan makanan yang lebih baik",
+          "itemordered":"Barang Dipesan",
+          "detailstransaction":"Detail Transaksis",
+          "cherryhealthy":"ceri sehat",
+          "driver":"Pengemudi",  
+              "tax10":"Pajak 10%",
+              "totalprice":"Harga Total",
+              "delieverto":"Kirim ke:",
+              "name":"Nama",
+              "phoneno":"Nomor Telepon.",
+              "address":"Alamat",
+              "houseno":"Nomor Rumah.",
+              "city":"Kotas",
+              "checkoutnow":"Periksa Sekarang",
+              "newyork":"New York",
+              "bC54Berlin":"SM54 Berlin",
+              "newyorkcity":"Kota New York",
+              "weserveincomparabledelicacies":"Kami menyajikan hidangan lezat yang tak tertandingis",
+              "allthebestrestaurantswiththeirtopmenuwaitingforyoutheycantwaitforyourorder":" Semua restoran terbaik dengan\nmenu unggulannya menunggu Anda, mereka tidak sabar\n          untuk pesanan Anda!!",
+              "skip":"Melewati",
+              "next":"Berikutnya",
+              "chatlist":"                                   Daftar Obrolan",
+              "allmessages":"Semua Pesan",
+              "geopartEtdsien":"Geopart Etdsien",
+              "yourOrderJustArrived":"Pesanan Anda Baru Saja Tiba!",
+              "stevanoClirover":"Stevano Clirover",
+              "elisiaJustin":"Elisia Justin",
+              "justtoorder":"Hanya untuk memesan",
+              "okayforwhatlevelofspiciness":"Oke, untuk tingkat kepedasan berapa?",
+              "okayWaitaminute":"Oke, Tunggu sebentar\n🙏",
+              "okayImwaiting":"Oke, saya tunggu 🙌",
+              "typesomething":"Ketik sesuatu...",
+              "mycart":"Keranjang Saya",
+              "ouchHungry":"Aduh! Lapar",
+              "seemslikeyouhavenotorderedanyfoodyet":"Sepertinya Anda belum memesan\nan makanan apa pun",
+              "findfood":"Temukan Makanan",
+              "deliverylocation":"Lokasi Pengiriman",
+              "home":"Rumah",
+              "changelocation":"Ubah Lokasi",
+              "ordinaryburger":"Burger Biasa",
+              "ordernow":"Pesan sekarang",
+              "promoCode":"Kode Promo. . .",
+              "apply":"Menerapkan",
+              "recommendedforyou":"Direkomendasikan Untuk Anda",
+              "paymentsummary":"Ringkasan Pembayaran",
+              "totalItems":"Jumlah Barang (3)",
+              "deliveryFee":"Biaya Pengiriman",
+              "free":"Bebas",
+              "discount":"Diskon",
+              "total":"Total",
+              "logintoyouraccount":"Masuk ke\nkun Anda.",
+              "pleasesignintoyouraccount":"Silakan masuk ke akun Anda",
+              "password":"Kata sandi",
+              "forgotpassword":"Lupa kata sandi?",
+              "signin":"Masuk",
+              "orsigninwith":"Atau masuk dengan",
+              "donthaveanaccount":"Belum punya akun? ",
+              "register":"Daftar",
+              "createyournewaccount":"Buat akun baru Anda",
+              "username":"Nama belakang",
+              "enterusername":"Masukkan Nama Pengguna",
+              "iagreewith":"Saya setuju dengan ",
+              "termsofserivce":"Ketentuan Layanan ",
+              "and":"Dan ",
+              "privacy":"Pribadi",
+              "policy":"Kebijakan",
+              "enteryouremailaddresandwellsendyouconfirmationcodetoresetyourpassword":"Masukkan alamat email Anda dan kami akan mengirimkan kode konfirmasi untuk mengatur ulang kata sandi Anda",
+              "continuee":"Melanjutkan",
+              "selectwhichcontactdetailsshouldweusetoresetyourpassword":"Pilih detail kontak mana yang harus kami gunakan untuk mengatur ulang kata sandi Anda",
+              "sendviaWhatsApp":"Kirim melalui WhatsApp",
+              "whatsApp":"Ada apa",
+              "sendviaEmail":"Kirim melalui Email",
+              "email":"E-mail",
+              "otp":"OTP",
+              "emailverification":"Verifikasi email",
+              "entertheverificationcodewesentyouonAlbertsgmailcom":"Masukkan kode verifikasi yang kami kirimkan kepada Anda di:\nAlberts******@gmail.com",
+              "didntreceivecode":"Tidak menerima kode? ",
+              "resend":"Kirim ulang",
+              "resetPassword":"Setel Ulang Kata Sandi",
+              "yournewpasswordmustbedifferentfromthepreviouslyusedpassword":"Kata sandi baru Anda harus berbeda dari kata sandi yang digunakan sebelumnya",
+              "newpassword":"Kata Sandi Baru",
+              "mustbeatleast8character":"Harus minimal 8 karakter",
+              "confirmpassword":"Konfirmasi Kata Sandi",
+              "verifyaccount":"Verifikasi Akun",
+              "passwordchanged":"Kata Sandi Telah Diubah",
+              "passwordchangedsuccessfullyyoucanloginagainwithanewpassword":"Kata sandi berhasil diubah, Anda dapat masuk lagi dengan kata sandi baru",
+              "providethebestfoodforyou":"Menyediakan makanan terbaik untuk Anda",
+              "findbyCategory":"Temukan berdasarkan Kategori",
+              "beefBurger":"Burger Daging Sapi",
+              "burgerwithfries":"Burger dengan kentang",
+              "Burger":"daging burger",
+              "taco":"taco",
+              "drink":"Minum",
+              "pizza":"Pizza",
+              "yourLocation":"Lokasi Anda",
+              "cart":"keranjang",
+              "chat":"mengobrols",
+              "findYourFavoriteFood":"Temukan Makanan Favorit Anda",
+              "searchSomething":"Cari Sesuatu",
+              "wecouldntfindanyresults":"Kami tidak dapat menemukan hasil apa pun!",
+              "pleasecheckyoursearchforanytyposorspellingerrorsortryadifferentsearchterm":"Silakan periksa pencarian Anda untuk menemukan kesalahan ketik atau kesalahan ejaan, atau coba istilah pencarian yang lain.",
+              "searchfood":"Pencarian Makanan",
+              "myrecentorder":"Pesanan saya baru-baru ini",
+              "burgerresturant":"Restoran Burger",
+                "aboutThisMenu":"Tentang Menu Ini",
+                "burgerwithMeat":"Burger dengan daging 🍔",
+                "description":"Keterangan",
+                "burgerWithMeatisatypicalfoodfromourrestaurantthatismuchindemandbymanypeoplethisisveryrecommendedforyou":"Burger Dengan Daging merupakan makanan khas dari restoran kami yang banyak diminati oleh banyak orang, sangat direkomendasikan untuk anda.",
+                "freedelivery":"Pengiriman Gratis",
+                "addtocart":"Tambahkan ke keranjang",
+                "delieverdyourorder":"Telah mengirimkan pesanan Anda",  
+                    "cristopertDastin":"Kristoper Dastin",
+                    "yourDeliveryTime":"Waktu Pengiriman Anda",
+                    "estimated830915PM":"Diperkirakan pukul 20.30 - 21.15",
+                    "order":  "      Memesan",
+                    "burger2WithMeat": "    Burger dengan Daging",
+                    "recentsearches":"Pencarian terbaru",
+                    "burgers":"Burger",
+                    "fastfood":"Makanan cepat saji",
+                    "dessert":"Hidangan penutup",
+                    "french":"Perancis",
+                    "fastry":"Cepat Saji"
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
