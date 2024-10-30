@@ -6,8 +6,8 @@ import 'package:foodapp/constants/app_fonts.dart';
 import 'package:foodapp/constants/app_images.dart';
 import 'package:foodapp/constants/app_styling.dart';
 import 'package:foodapp/view/screens/cart/cart_item_model.dart';
+import 'package:foodapp/view/screens/cart/delievery_info.dart';
 import 'package:foodapp/view/screens/cart/order_delivery.dart';
-import 'package:foodapp/view/screens/home/payment_screen.dart';
 import 'package:foodapp/view/widget/Custom_button_widget.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
 import 'package:foodapp/view/widget/custom_cart_item_widget.dart';
@@ -42,8 +42,8 @@ class _CartScreenState extends State<CartScreen> {
     ),
   ];
 
-  double deliveryFee = 0; // Free delivery
-  double discount = 10900; // Predefined discount
+  double deliveryFee = 0;
+  double discount = 10900;
 
   // Calculate the total items cost based on selected items and quantities
   double get totalItemsCost {
@@ -180,7 +180,8 @@ class _CartScreenState extends State<CartScreen> {
                   textSize: 14,
                   backgroundColor: kTertiaryColor,
                   onTap: () {
-                    Get.to(() => PaymentScreen()); // Navigate to payment
+                    Get.to(() => DeliveryInfo(
+                        cartItems: cartItems, finalTotal: finalTotal));
                   },
                 ),
               ),

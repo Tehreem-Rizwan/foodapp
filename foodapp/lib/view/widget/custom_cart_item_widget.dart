@@ -4,32 +4,38 @@ import 'package:foodapp/constants/app_styling.dart';
 import 'package:foodapp/view/screens/cart/cart_item_model.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
 
-class CartItemWidget extends StatelessWidget {
+class CartItemWidget extends StatefulWidget {
   final CartItemModel cartItem;
   final VoidCallback onChanged;
 
   CartItemWidget({required this.cartItem, required this.onChanged});
 
   @override
+  _CartItemWidgetState createState() => _CartItemWidgetState();
+}
+
+class _CartItemWidgetState extends State<CartItemWidget> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          bottom: h(context, 16)), // Add space between each card
+      padding: EdgeInsets.only(bottom: h(context, 16)),
       child: Card(
         color: kSecondaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(h(context, 12)),
         ),
-        margin: EdgeInsets.symmetric(horizontal: 8), // Optional: Adjust margin
+        margin: EdgeInsets.symmetric(horizontal: 8),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Row(
             children: [
               Checkbox(
-                value: cartItem.isChecked,
+                value: widget.cartItem.isChecked,
                 onChanged: (value) {
-                  cartItem.isChecked = value!;
-                  onChanged(); // Notify parent about the change
+                  setState(() {
+                    widget.cartItem.isChecked = value!;
+                  });
+                  widget.onChanged(); // Notify parent about the change
                 },
                 checkColor: kSecondaryColor,
                 activeColor: kTertiaryColor,
@@ -41,7 +47,7 @@ class CartItemWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(h(context, 12)),
                   image: DecorationImage(
-                    image: AssetImage(cartItem.imagePath),
+                    image: AssetImage(widget.cartItem.imagePath),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -52,13 +58,13 @@ class CartItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: cartItem.name,
+                      text: widget.cartItem.name,
                       size: 16,
                       weight: FontWeight.w600,
                       color: kBlackyColor,
                     ),
                     CustomText(
-                      text: '\$${cartItem.price}',
+                      text: '\$${widget.cartItem.price}',
                       size: 14,
                       weight: FontWeight.w700,
                       color: kTertiaryColor,
@@ -67,24 +73,27 @@ class CartItemWidget extends StatelessWidget {
                     Row(
                       children: [
                         _buildQuantityButton(context, Icons.remove, () {
-                          if (cartItem.quantity > 1) {
-                            cartItem.quantity--;
-                            onChanged(); // Notify parent about the change
-                          }
+                          setState(() {
+                            if (widget.cartItem.quantity > 1) {
+                              widget.cartItem.quantity--;
+                            }
+                          });
+                          widget.onChanged();
                         }),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8),
                           child: CustomText(
-                            text:
-                                '${cartItem.quantity}', // Display the updated quantity
+                            text: '${widget.cartItem.quantity}',
                             size: 14,
                             weight: FontWeight.w500,
                             color: kBlackyColor,
                           ),
                         ),
                         _buildQuantityButton(context, Icons.add, () {
-                          cartItem.quantity++;
-                          onChanged(); // Notify parent about the change
+                          setState(() {
+                            widget.cartItem.quantity++;
+                          });
+                          widget.onChanged();
                         }),
                       ],
                     ),

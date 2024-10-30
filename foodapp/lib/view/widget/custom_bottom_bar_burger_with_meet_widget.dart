@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_images.dart';
 import 'package:foodapp/constants/app_styling.dart';
-import 'package:foodapp/view/screens/home/payment_screen.dart';
 import 'package:foodapp/view/widget/Custom_button_widget.dart';
 import 'package:foodapp/view/widget/custom_quantity_selector_burgetwithmeat_widget.dart';
-import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomBar extends StatelessWidget {
@@ -28,7 +26,7 @@ class BottomBar extends StatelessWidget {
             textSize: 14,
             backgroundColor: kTertiaryColor,
             onTap: () {
-              Get.to(() => PaymentScreen());
+              //
             },
             imagePath: Assets.imagesCart,
           ),
