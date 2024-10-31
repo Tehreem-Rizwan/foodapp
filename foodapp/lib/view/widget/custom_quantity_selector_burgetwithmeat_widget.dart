@@ -10,8 +10,7 @@ class QuantitySelector extends StatefulWidget {
 }
 
 class _QuantitySelectorState extends State<QuantitySelector> {
-  int quantity = 4; // Initial quantity value
-
+  int quantity = 1;
   void _increaseQuantity() {
     setState(() {
       quantity++; // Increment the quantity

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_images.dart';
 import 'package:foodapp/constants/app_styling.dart';
@@ -106,7 +107,7 @@ class HomePage extends StatelessWidget {
   Widget SelectedPage(int index) {
     final List<Widget> pages = [
       EmptyCartScreen(),
-      ChatListPage(),
+      ProviderScope(child: ChatListPage()),
       ProfileSettingsScreen(),
     ];
     return pages[index - 1];

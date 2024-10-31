@@ -142,7 +142,10 @@ class ChatScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: h(context, 265)),
-                          ChatInputWidget(),
+                          ChatInputWidget(
+                            controller: messageController,
+                            onSend: () {},
+                          ),
                         ],
                       ),
                     ),

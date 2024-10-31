@@ -145,7 +145,7 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
                         phone: _phonenumberController.text,
                         houseNo: _housenoController.text,
                         city: _cityController.text,
-                        totalPrice: widget.finalTotal,
+                        finalTotal: widget.finalTotal,
                       ));
                 },
               ),

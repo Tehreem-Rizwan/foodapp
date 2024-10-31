@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodapp/constants/app_colors.dart';
+import 'package:foodapp/constants/app_fonts.dart';
+import 'package:foodapp/constants/app_styling.dart';
 import 'package:foodapp/view/screens/cart/cart_item_model.dart';
-import 'package:foodapp/view/screens/services/firebase_services.dart';
 import 'package:foodapp/view/widget/Custom_button_widget.dart';
-
+import 'package:foodapp/view/widget/Custom_text_widget.dart';
+import 'package:foodapp/view/widget/common_image_view_widget.dart';
+import 'package:foodapp/view/widget/custom_address_item_payment.dart';
+import 'package:foodapp/view/widget/custom_detail_item_payment.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'dart:io';
 
 class PaymentScreen extends StatelessWidget {
   final List<CartItemModel> cartItems;
@@ -16,9 +19,7 @@ class PaymentScreen extends StatelessWidget {
   final String address;
   final String houseNo;
   final String city;
-  final double totalPrice;
-
-  final FirebaseService _firebaseService = FirebaseService();
+  final double finalTotal;
 
   PaymentScreen({
     required this.cartItems,
@@ -27,41 +28,91 @@ class PaymentScreen extends StatelessWidget {
     required this.address,
     required this.houseNo,
     required this.city,
-    required this.totalPrice,
+    required this.finalTotal,
   });
-  Future<void> _checkoutNow() async {
-    List<CartItemModel> updatedCartItems = [];
-
-    for (var item in cartItems) {
-      File imageFile = File(item.imagePath); // Convert image path to File
-      String imageUrl = await _firebaseService.uploadImage(imageFile);
-
-      updatedCartItems.add(CartItemModel(
-        imagePath: imageUrl,
-        name: name,
-        price: totalPrice,
-      ));
-    }
-
-    // Store the order data in Firestore using the updated list
-    await _firebaseService.storeOrderData(
-      cartItems: updatedCartItems,
-      name: name,
-      phone: phone,
-      address: address,
-      houseNo: houseNo,
-      city: city,
-      totalPrice: totalPrice,
-    );
-
-    // Show success message or navigate to another screen after successful order placement
-    Get.snackbar('Order Successful', 'Your order has been placed.');
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // UI code remains unchanged
+      backgroundColor: kSecondaryColor,
+      appBar: AppBar(
+        backgroundColor: kTransparentColor,
+        elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: kPrimaryColor,
+              size: 16,
+            ),
+          ),
+        ),
+        title: CustomText(
+          text: AppLocalizations.of(context)!.payment,
+          color: kBlackyColor,
+          size: 16,
+          fontFamily: AppFonts.Inter,
+          weight: FontWeight.bold,
+        ),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        child: ListView(
+          children: [
+            CustomText(
+              text: AppLocalizations.of(context)!.youdeservebettermeal,
+              size: 14,
+              weight: FontWeight.w300,
+              color: kgreyblackColor,
+            ),
+            SizedBox(height: 10),
+            CustomText(
+              text: AppLocalizations.of(context)!.itemordered,
+              size: 16,
+              weight: FontWeight.w600,
+              color: kBlackyColor,
+            ),
+            SizedBox(height: 16),
+            ...cartItems.map((item) => buildCartItem(item)).toList(),
+            SizedBox(height: 16),
+            CustomText(
+              text: AppLocalizations.of(context)!.detailstransaction,
+              size: 16,
+              weight: FontWeight.w700,
+              color: kBlackyColor,
+            ),
+            SizedBox(height: 10),
+            buildTransactionDetails(),
+            SizedBox(height: 16),
+            Divider(color: kWhite12Color, thickness: 2),
+            SizedBox(height: 16),
+            CustomText(
+              text: AppLocalizations.of(context)!.delieverto,
+              size: 16,
+              weight: FontWeight.w700,
+              color: kBlackyColor,
+            ),
+            SizedBox(height: 10),
+            AddressItem(label: AppLocalizations.of(context)!.name, value: name),
+            SizedBox(height: 5),
+            AddressItem(
+                label: AppLocalizations.of(context)!.phoneno, value: phone),
+            SizedBox(height: 5),
+            AddressItem(
+                label: AppLocalizations.of(context)!.address, value: address),
+            SizedBox(height: 5),
+            AddressItem(
+                label: AppLocalizations.of(context)!.houseno, value: houseNo),
+            SizedBox(height: 5),
+            AddressItem(label: AppLocalizations.of(context)!.city, value: city),
+          ],
+        ),
+      ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: CustomButton(
@@ -70,9 +121,99 @@ class PaymentScreen extends StatelessWidget {
           buttonText: AppLocalizations.of(context)!.checkoutnow,
           textSize: 14,
           backgroundColor: kTertiaryColor,
-          onTap: _checkoutNow,
+          onTap: () async {
+            await _storePaymentDataToFirestore();
+            Get.snackbar(
+                "Success", "Payment data has been saved successfully!");
+          },
         ),
       ),
     );
+  }
+
+  Widget buildCartItem(CartItemModel item) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12.0),
+            child: CommonImageView(
+              imagePath: item.imagePath,
+              width: 80,
+              height: 70,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: item.name,
+                  size: 16,
+                  weight: FontWeight.w600,
+                  color: kBlackyColor,
+                ),
+                SizedBox(height: 8),
+                CustomText(
+                  text:
+                      "\$ ${item.price.toStringAsFixed(2)}", // Display price with two decimal points
+                  size: 14,
+                  weight: FontWeight.w700,
+                  color: kTertiaryColor,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildTransactionDetails() {
+    double totalPrice = cartItems.fold(0, (sum, item) => sum + item.price);
+
+    return Column(
+      children: [
+        DetailItem(
+            name: "Total Items", price: "\$ ${totalPrice.toStringAsFixed(2)}"),
+        SizedBox(height: 5),
+        DetailItem(name: "Tax 10", price: "\$ 10.00"),
+        SizedBox(height: 5),
+        DetailItem(
+            name: "Total Price",
+            price: "\$ ${(totalPrice + 10.00).toStringAsFixed(2)}",
+            highlight: true),
+      ],
+    );
+  }
+
+  Future<void> _storePaymentDataToFirestore() async {
+    CollectionReference payments =
+        FirebaseFirestore.instance.collection('payments');
+
+    try {
+      await payments.add({
+        'cartItems': cartItems.map((item) {
+          return {
+            'name': item.name,
+            'price': item.price,
+            'imagePath': item.imagePath,
+          };
+        }).toList(),
+        'totalPrice':
+            cartItems.fold(0, (sum, item) => sum + item.price) + 10.00,
+        'name': name,
+        'phone': phone,
+        'address': address,
+        'houseNo': houseNo,
+        'city': city,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      Get.snackbar("Error", "Failed to save payment data: $e");
+    }
   }
 }

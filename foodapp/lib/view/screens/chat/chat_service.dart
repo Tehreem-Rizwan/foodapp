@@ -1,21 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:foodapp/view/screens/chat/chat_model.dart';
 
 class ChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> sendMessage(MessageModel message) async {
-    await _firestore.collection('messages').add(message.toMap());
+  // Send a message
+  Future<void> sendMessage(
+      String senderId, String receiverId, String message) async {
+    await _firestore.collection('chats').add({
+      'senderId': senderId,
+      'receiverId': receiverId,
+      'message': message,
+      'timestamp': FieldValue.serverTimestamp(),
+      'isRead': false, // Message is unread when sent
+    });
   }
 
-  Stream<List<MessageModel>> getMessages(String chatId) {
+  // Listen to messages between two users in real-time
+  Stream<QuerySnapshot> getMessages(String senderId, String receiverId) {
     return _firestore
-        .collection('messages')
-        .where('chatId', isEqualTo: chatId)
-        .orderBy('timestamp', descending: false)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => MessageModel.fromMap(doc.data()))
-            .toList());
+        .collection('chats')
+        .where('senderId', isEqualTo: senderId)
+        .where('receiverId', isEqualTo: receiverId)
+        .orderBy('timestamp', descending: true)
+        .snapshots();
   }
 }
