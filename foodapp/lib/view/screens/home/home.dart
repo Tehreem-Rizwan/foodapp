@@ -107,7 +107,7 @@ class HomePage extends StatelessWidget {
   Widget SelectedPage(int index) {
     final List<Widget> pages = [
       EmptyCartScreen(),
-      ProviderScope(child: ChatListPage()),
+      ProviderScope(child: ChatListScreen()),
       ProfileSettingsScreen(),
     ];
     return pages[index - 1];

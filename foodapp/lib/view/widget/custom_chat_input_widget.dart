@@ -1,32 +1,32 @@
-import 'dart:io';
+import 'dart:io'; // Import the File class
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:foodapp/view/screens/chat/providers/chat_provider.dart'; // Import Riverpod for state management
+import 'package:foodapp/constants/app_images.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:foodapp/constants/app_styling.dart';
 
-class ChatInputWidget extends ConsumerStatefulWidget {
-  // Changed to ConsumerStatefulWidget for Riverpod
-  final TextEditingController messageController;
-  final String chatroomId; // Add chatroomId
-  final String receiverId;
+class ChatInputWidget extends StatefulWidget {
+  final TextEditingController controller;
+  final VoidCallback onSend;
 
   const ChatInputWidget({
     Key? key,
-    required this.messageController,
-    required this.chatroomId, // Pass chatroomId
-    required this.receiverId,
+    required this.controller,
+    required this.onSend,
   }) : super(key: key);
 
   @override
   _ChatInputWidgetState createState() => _ChatInputWidgetState();
 }
 
-class _ChatInputWidgetState extends ConsumerState<ChatInputWidget> {
+class _ChatInputWidgetState extends State<ChatInputWidget> {
+  bool _isEmojiVisible = false;
   FilePickerResult? fileResult;
 
+  // Function to pick a file from the device
   Future<void> _pickFile() async {
     fileResult = await FilePicker.platform.pickFiles();
     if (fileResult != null && fileResult!.files.single.path != null) {
@@ -36,6 +36,7 @@ class _ChatInputWidgetState extends ConsumerState<ChatInputWidget> {
     }
   }
 
+  // Function to upload the file to Firebase Storage
   Future<void> _uploadFileToFirebase(File file, String fileName) async {
     try {
       final storageRef =
@@ -48,80 +49,102 @@ class _ChatInputWidgetState extends ConsumerState<ChatInputWidget> {
     }
   }
 
+  // Function to send the message or file URL to Firebase
   Future<void> _sendMessageToFirebase(String? fileUrl) async {
-    final message = widget.messageController.text.trim();
+    final message = widget.controller.text.trim();
     if (message.isNotEmpty || fileUrl != null) {
       await FirebaseFirestore.instance.collection('chats').add({
-        'text': message.isEmpty ? null : message,
+        'text': message,
         'fileUrl': fileUrl ?? '',
         'createdAt': Timestamp.now(),
         'isRead': false,
-        'senderId': 'your_sender_id',
+        'senderId': 'your_sender_id', // Replace with actual sender ID
       });
-      widget.messageController.clear();
+      widget.controller.clear();
     }
+  }
+
+  // Function to toggle the emoji picker
+  void _toggleEmojiPicker() {
+    setState(() {
+      _isEmojiVisible = !_isEmojiVisible;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Icon(Icons.emoji_emotions_outlined),
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: kSecondaryColor,
+                    border: Border.all(color: const Color(0xFFD6D6D6)),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: TextField(
-                      controller: widget.messageController,
-                      decoration: InputDecoration(
-                        hintText: "Type a message...",
-                        border: InputBorder.none,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: _toggleEmojiPicker,
+                        child: Image(
+                          image: AssetImage(Assets.imagesEmoji),
+                          color: kgreyblackColor,
+                        ),
                       ),
-                    ),
+                      SizedBox(width: w(context, 16)),
+                      Expanded(
+                        child: TextField(
+                          controller: widget.controller,
+                          decoration: InputDecoration(
+                            hintText:
+                                AppLocalizations.of(context)!.typesomething,
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: kgreyblackColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: _pickFile,
+                        child: Image(
+                          image: AssetImage(Assets.imagesAttachment),
+                          color: kgreyblackColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  GestureDetector(
-                    onTap: _pickFile,
-                    child: Icon(Icons.attach_file),
+                ),
+              ),
+              SizedBox(width: w(context, 8)),
+              GestureDetector(
+                onTap: () async {
+                  if (widget.controller.text.isNotEmpty) {
+                    await _sendMessageToFirebase(null);
+                    widget.onSend();
+                  }
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: kTertiaryColor,
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                ],
+                  child: Icon(Icons.send, color: kSecondaryColor),
+                ),
               ),
-            ),
+            ],
           ),
-          SizedBox(width: 8),
-          GestureDetector(
-            onTap: () async {
-              if (widget.messageController.text.isNotEmpty) {
-                await ref.read(chatProvider).sendMessage(
-                      message: widget.messageController.text,
-                      chatroomId: widget.chatroomId,
-                      receiverId: widget.receiverId,
-                    );
-                widget.messageController.clear();
-              }
-            },
-            child: Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(Icons.send, color: kSecondaryColor),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
