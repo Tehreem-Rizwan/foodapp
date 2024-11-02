@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
-import 'package:foodapp/constants/app_images.dart';
 import 'package:foodapp/constants/app_styling.dart';
+import 'package:foodapp/view/screens/chat/models/message.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
 
 class SentMessageWidget extends StatelessWidget {
-  final String text;
-  final String time;
-  final bool isRead;
-
+  final Message message;
   const SentMessageWidget({
     Key? key,
-    required this.text,
-    required this.time,
-    required this.isRead,
+    required this.message,
   }) : super(key: key);
 
   @override
@@ -33,27 +28,11 @@ class SentMessageWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: CustomText(
-                  text: text,
+                  text: message.message,
                   size: 12,
                   weight: FontWeight.w500,
                   color: kSecondaryColor,
                 ),
-              ),
-              Row(
-                children: [
-                  CustomText(
-                    text: time,
-                    size: 10,
-                    weight: FontWeight.w500,
-                    color: kgreyblackColor,
-                  ),
-                  if (isRead)
-                    Image(
-                      image: AssetImage(Assets.imagesDoubleCheck),
-                      color: kTertiaryColor,
-                      height: 20,
-                    )
-                ],
               ),
             ],
           ),

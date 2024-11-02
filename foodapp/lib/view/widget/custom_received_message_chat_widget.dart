@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
-import 'package:foodapp/constants/app_styling.dart';
+import 'package:foodapp/view/screens/chat/models/message.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 
 class ReceivedMessageWidget extends StatelessWidget {
-  final String avatar;
-  final String text;
-  final String time;
+  final Message message;
 
   const ReceivedMessageWidget({
     Key? key,
-    required this.avatar,
-    required this.text,
-    required this.time,
+    required this.message,
   }) : super(key: key);
 
   @override
@@ -23,16 +19,11 @@ class ReceivedMessageWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            radius: 16,
-            backgroundImage: AssetImage(avatar),
-          ),
-          SizedBox(width: w(context, 16)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text: AppLocalizations.of(context)!.stevanoClirover,
+                text: message.message,
                 size: 14,
                 weight: FontWeight.w600,
                 color: kBlackyColor,
@@ -44,18 +35,6 @@ class ReceivedMessageWidget extends StatelessWidget {
                   color: kGreyLightColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: CustomText(
-                  text: text,
-                  size: 12,
-                  weight: FontWeight.w500,
-                  color: kBlackyColor,
-                ),
-              ),
-              CustomText(
-                text: time,
-                size: 10,
-                weight: FontWeight.w500,
-                color: kgreyblackColor,
               ),
             ],
           ),

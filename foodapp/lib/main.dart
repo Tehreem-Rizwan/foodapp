@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/controllers/language_change_controller.dart';
+import 'package:foodapp/view/screens/home/home.dart';
+import 'package:foodapp/view/screens/launch/auth/signin_screen.dart';
 import 'package:foodapp/view/screens/launch/onboardingScreen1.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -57,6 +60,25 @@ class MyApp extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class AuthGate extends StatelessWidget {
+  const AuthGate({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return HomePage();
+        } else {
+          return SigninScreen(
+            userEmail: 'tehreemrizwan30@gmail.com',
+          );
+        }
+      },
     );
   }
 }

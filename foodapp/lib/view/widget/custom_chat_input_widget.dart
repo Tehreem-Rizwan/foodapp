@@ -4,25 +4,27 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
-import 'package:foodapp/constants/app_images.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:foodapp/constants/app_styling.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foodapp/view/screens/chat/providers/chat_provider.dart'; // Import Riverpod for state management
 
-class ChatInputWidget extends StatefulWidget {
-  final TextEditingController controller;
-  final VoidCallback onSend;
+class ChatInputWidget extends ConsumerStatefulWidget {
+  // Changed to ConsumerStatefulWidget for Riverpod
+  final TextEditingController messageController;
+  final String chatroomId; // Add chatroomId
+  final String receiverId;
 
   const ChatInputWidget({
     Key? key,
-    required this.controller,
-    required this.onSend,
+    required this.messageController,
+    required this.chatroomId, // Pass chatroomId
+    required this.receiverId,
   }) : super(key: key);
 
   @override
   _ChatInputWidgetState createState() => _ChatInputWidgetState();
 }
 
-class _ChatInputWidgetState extends State<ChatInputWidget> {
+class _ChatInputWidgetState extends ConsumerState<ChatInputWidget> {
   FilePickerResult? fileResult;
 
   Future<void> _pickFile() async {
@@ -46,95 +48,80 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
     }
   }
 
-  // Function to send the message or file URL to Firebase
   Future<void> _sendMessageToFirebase(String? fileUrl) async {
-    final message = widget.controller.text.trim();
+    final message = widget.messageController.text.trim();
     if (message.isNotEmpty || fileUrl != null) {
       await FirebaseFirestore.instance.collection('chats').add({
-        'text': message,
+        'text': message.isEmpty ? null : message,
         'fileUrl': fileUrl ?? '',
         'createdAt': Timestamp.now(),
         'isRead': false,
-        'senderId': 'your_sender_id', // Replace with actual sender ID
+        'senderId': 'your_sender_id',
       });
-      widget.controller.clear();
+      widget.messageController.clear();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: kSecondaryColor,
-                    border: Border.all(color: const Color(0xFFD6D6D6)),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Image(
-                          image: AssetImage(Assets.imagesEmoji),
-                          color: kgreyblackColor,
-                        ),
-                      ),
-                      SizedBox(width: w(context, 16)),
-                      Expanded(
-                        child: TextField(
-                          controller: widget.controller,
-                          decoration: InputDecoration(
-                            hintText:
-                                AppLocalizations.of(context)!.typesomething,
-                            border: InputBorder.none,
-                            hintStyle: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: kgreyblackColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: _pickFile,
-                        child: Image(
-                          image: AssetImage(Assets.imagesAttachment),
-                          color: kgreyblackColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
               ),
-              SizedBox(width: w(context, 8)),
-              GestureDetector(
-                onTap: () async {
-                  if (widget.controller.text.isNotEmpty) {
-                    await _sendMessageToFirebase(null);
-                    widget.onSend();
-                  }
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: kTertiaryColor,
-                    borderRadius: BorderRadius.circular(8),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: Icon(Icons.emoji_emotions_outlined),
                   ),
-                  child: Icon(Icons.send, color: kSecondaryColor),
-                ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: TextField(
+                      controller: widget.messageController,
+                      decoration: InputDecoration(
+                        hintText: "Type a message...",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: _pickFile,
+                    child: Icon(Icons.attach_file),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ],
+          SizedBox(width: 8),
+          GestureDetector(
+            onTap: () async {
+              if (widget.messageController.text.isNotEmpty) {
+                await ref.read(chatProvider).sendMessage(
+                      message: widget.messageController.text,
+                      chatroomId: widget.chatroomId,
+                      receiverId: widget.receiverId,
+                    );
+                widget.messageController.clear();
+              }
+            },
+            child: Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(Icons.send, color: kSecondaryColor),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

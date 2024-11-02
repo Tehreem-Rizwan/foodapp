@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:foodapp/constants/app_images.dart';
 import 'package:foodapp/constants/firebase_field_names.dart';
 
 @immutable
@@ -34,7 +35,7 @@ class UserModel {
       FirebaseFieldNames.gender: gender,
       FirebaseFieldNames.email: email,
       FirebaseFieldNames.password: password,
-      FirebaseFieldNames.profilePicUrl: profilePicUrl,
+      FirebaseFieldNames.profilePicUrl: Assets.imagesStevanoClirover,
       FirebaseFieldNames.uid: uid,
       FirebaseFieldNames.friends: friends,
       FirebaseFieldNames.sentRequests: sentRequests,
