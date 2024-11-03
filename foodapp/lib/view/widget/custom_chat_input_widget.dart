@@ -1,21 +1,20 @@
 import 'dart:io'; // Import the File class
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:foodapp/constants/app_styling.dart';
+import 'package:foodapp/view/screens/services/chat_service.dart';
 
 class ChatInputWidget extends StatefulWidget {
-  final TextEditingController controller;
-  final VoidCallback onSend;
+  final String receiverUserID;
 
   const ChatInputWidget({
     Key? key,
-    required this.controller,
-    required this.onSend,
+    required this.receiverUserID,
   }) : super(key: key);
 
   @override
@@ -23,10 +22,17 @@ class ChatInputWidget extends StatefulWidget {
 }
 
 class _ChatInputWidgetState extends State<ChatInputWidget> {
-  bool _isEmojiVisible = false;
+  final TextEditingController _messageController = TextEditingController();
+  final ChatService _chatService = ChatService();
   FilePickerResult? fileResult;
+  void sendMessage() async {
+    if (_messageController.text.isNotEmpty) {
+      await _chatService.sendMessage(
+          widget.receiverUserID, _messageController.text);
+      _messageController.clear();
+    }
+  }
 
-  // Function to pick a file from the device
   Future<void> _pickFile() async {
     fileResult = await FilePicker.platform.pickFiles();
     if (fileResult != null && fileResult!.files.single.path != null) {
@@ -43,32 +49,9 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
           FirebaseStorage.instance.ref().child("chat_files/$fileName");
       await storageRef.putFile(file);
       String downloadUrl = await storageRef.getDownloadURL();
-      _sendMessageToFirebase(downloadUrl);
     } catch (e) {
       print("Error uploading file: $e");
     }
-  }
-
-  // Function to send the message or file URL to Firebase
-  Future<void> _sendMessageToFirebase(String? fileUrl) async {
-    final message = widget.controller.text.trim();
-    if (message.isNotEmpty || fileUrl != null) {
-      await FirebaseFirestore.instance.collection('chats').add({
-        'text': message,
-        'fileUrl': fileUrl ?? '',
-        'createdAt': Timestamp.now(),
-        'isRead': false,
-        'senderId': 'your_sender_id', // Replace with actual sender ID
-      });
-      widget.controller.clear();
-    }
-  }
-
-  // Function to toggle the emoji picker
-  void _toggleEmojiPicker() {
-    setState(() {
-      _isEmojiVisible = !_isEmojiVisible;
-    });
   }
 
   @override
@@ -76,7 +59,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
           child: Row(
             children: [
               Expanded(
@@ -91,7 +74,6 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: _toggleEmojiPicker,
                         child: Image(
                           image: AssetImage(Assets.imagesEmoji),
                           color: kgreyblackColor,
@@ -100,7 +82,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
                       SizedBox(width: w(context, 16)),
                       Expanded(
                         child: TextField(
-                          controller: widget.controller,
+                          controller: _messageController,
                           decoration: InputDecoration(
                             hintText:
                                 AppLocalizations.of(context)!.typesomething,
@@ -126,12 +108,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
               ),
               SizedBox(width: w(context, 8)),
               GestureDetector(
-                onTap: () async {
-                  if (widget.controller.text.isNotEmpty) {
-                    await _sendMessageToFirebase(null);
-                    widget.onSend();
-                  }
-                },
+                onTap: sendMessage,
                 child: Container(
                   padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
