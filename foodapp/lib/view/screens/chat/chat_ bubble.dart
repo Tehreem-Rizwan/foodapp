@@ -5,7 +5,9 @@ import 'package:foodapp/view/widget/Custom_text_widget.dart';
 
 class ChatBubble extends StatelessWidget {
   final String message;
-  const ChatBubble({super.key, required this.message});
+  final bool isCurrentUser;
+  const ChatBubble(
+      {super.key, required this.message, required this.isCurrentUser});
 
   @override
   Widget build(BuildContext context) {

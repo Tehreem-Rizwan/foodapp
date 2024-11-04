@@ -1,6 +1,5 @@
 import 'dart:io'; // Import the File class
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
@@ -24,13 +23,42 @@ class ChatInputWidget extends StatefulWidget {
 class _ChatInputWidgetState extends State<ChatInputWidget> {
   final TextEditingController _messageController = TextEditingController();
   final ChatService _chatService = ChatService();
+  FocusNode myFocusNode = FocusNode();
+
   FilePickerResult? fileResult;
+  @override
+  void initState() {
+    super.initState();
+    myFocusNode.addListener(() {
+      if (myFocusNode.hasFocus) {
+        Future.delayed(Duration(milliseconds: 500), () => scrollDown());
+      }
+    });
+    Future.delayed(Duration(milliseconds: 500), () => scrollDown());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _messageController.dispose();
+  }
+
+  final ScrollController _scrollController = ScrollController();
+  void scrollDown() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(seconds: 1),
+      curve: Curves.easeOut,
+    );
+  }
+
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
       await _chatService.sendMessage(
           widget.receiverUserID, _messageController.text);
       _messageController.clear();
     }
+    scrollDown();
   }
 
   Future<void> _pickFile() async {
@@ -82,6 +110,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
                       SizedBox(width: w(context, 16)),
                       Expanded(
                         child: TextField(
+                          focusNode: myFocusNode,
                           controller: _messageController,
                           decoration: InputDecoration(
                             hintText:

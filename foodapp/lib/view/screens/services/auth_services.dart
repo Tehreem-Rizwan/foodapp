@@ -5,8 +5,14 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  // Get the current user
+  User? getCurrentUser() {
+    return _auth.currentUser;
+  }
+
+  // Register user with email, password, and name
   Future<User?> registerWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String name) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -14,10 +20,11 @@ class AuthService {
       User? user = result.user;
 
       if (user != null) {
-        // Store user information in Firestore
+        // Store user information (uid, email, and name) in Firestore
         await _firestore.collection("users").doc(user.uid).set({
           'uid': user.uid,
           'email': email,
+          'name': name, // Store the username in Firestore
         });
       }
 
@@ -28,7 +35,7 @@ class AuthService {
     }
   }
 
-  // Sign in user with email and password
+// Sign in user with email and password
   Future<User?> signInWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -38,9 +45,11 @@ class AuthService {
       User? user = result.user;
 
       if (user != null) {
+        // Merge existing user data and ensure the name is stored
         await _firestore.collection("users").doc(user.uid).set({
           'uid': user.uid,
           'email': email,
+          // You can merge here if the name field already exists in Firestore
         }, SetOptions(merge: true));
       }
 
@@ -51,15 +60,12 @@ class AuthService {
     }
   }
 
+  // Sign out the user
   Future<void> signOut() async {
     try {
       await _auth.signOut();
     } catch (e) {
       print(e.toString());
     }
-  }
-
-  User? getCurrentUser() {
-    return _auth.currentUser;
   }
 }

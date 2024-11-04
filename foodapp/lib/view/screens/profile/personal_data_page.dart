@@ -46,29 +46,50 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
 
   Future<void> _saveData() async {
     String? imageUrl;
-
-    // Upload image to Firebase Storage
-    if (_image != null) {
-      final storageRef = FirebaseStorage.instance
-          .ref()
-          .child('profile_pictures/${emailController.text}');
-      final uploadTask = storageRef.putFile(_image!);
-      await uploadTask.whenComplete(() async {
-        imageUrl = await storageRef.getDownloadURL();
-      });
-    }
-
-    final user = FirebaseAuth.instance.currentUser;
+    User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
+      // Update profile picture if a new image is selected
+      if (_image != null) {
+        final storageRef = FirebaseStorage.instance
+            .ref()
+            .child('profile_pictures/${user.uid}');
+        final uploadTask = storageRef.putFile(_image!);
+        await uploadTask.whenComplete(() async {
+          imageUrl = await storageRef.getDownloadURL();
+        });
+      }
+
+      // Update Firestore profile details
       await FirebaseFirestore.instance.collection('profile').doc(user.uid).set({
         'fullname': fullnameController.text,
         'dob': dobController.text,
         'email': emailController.text,
         'phone': phonenumberController.text,
-        'imageUrl': imageUrl,
-      });
+        'imageUrl': imageUrl ?? '',
+      }, SetOptions(merge: true));
 
+      // Update Firebase Authentication email
+      if (user.email != emailController.text) {
+        try {
+          await user.updateEmail(emailController.text);
+          await user.reload();
+          user = FirebaseAuth.instance.currentUser; // Reload the user
+        } catch (error) {
+          print("Error updating email: $error");
+          // You may want to show a dialog to handle this case
+        }
+      }
+
+      // Show a success message or navigate to another page
+      Get.snackbar(
+        'Success',
+        'Profile updated successfully',
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+
+      // Navigate to profile settings screen
       Get.to(() => ProfileSettingsScreen());
     } else {
       print("User not logged in. Cannot save profile data.");

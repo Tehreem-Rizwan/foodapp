@@ -7,6 +7,7 @@ import 'package:foodapp/constants/app_images.dart';
 import 'package:foodapp/constants/app_styling.dart';
 import 'package:foodapp/view/screens/chat/call_screen.dart';
 import 'package:foodapp/view/screens/chat/chat_%20bubble.dart';
+import 'package:foodapp/view/screens/services/auth_services.dart';
 import 'package:foodapp/view/screens/services/chat_service.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
 import 'package:foodapp/view/widget/common_image_view_widget.dart';
@@ -14,10 +15,14 @@ import 'package:foodapp/view/widget/custom_chat_input_widget.dart';
 import 'package:get/get.dart';
 
 class ChatScreen extends StatefulWidget {
-  final String receiverUserEmail;
+  final String receiverEmail;
   final String receiverUserID;
-
-  ChatScreen({required this.receiverUserEmail, required this.receiverUserID});
+  final String receiverName;
+  ChatScreen({
+    required this.receiverEmail,
+    required this.receiverUserID,
+    required this.receiverName,
+  });
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -27,6 +32,33 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ChatService _chatService = ChatService();
   final FirebaseAuth _firebaseauth = FirebaseAuth.instance;
+  final AuthService _authService = AuthService();
+  FocusNode myFocusNode = FocusNode();
+  @override
+  void initState() {
+    super.initState();
+    myFocusNode.addListener(() {
+      if (myFocusNode.hasFocus) {
+        Future.delayed(Duration(milliseconds: 500), () => scrollDown());
+      }
+    });
+    Future.delayed(Duration(milliseconds: 500), () => scrollDown());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _messageController.dispose();
+  }
+
+  final ScrollController _scrollController = ScrollController();
+  void scrollDown() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(seconds: 1),
+      curve: Curves.easeOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +96,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                       CustomText(
                         fontFamily: AppFonts.Inter,
-                        text: widget.receiverUserEmail,
+                        text: widget.receiverName,
                         size: 16,
                         weight: FontWeight.w600,
                         color: kBlackyColor,
@@ -129,9 +161,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ],
             ),
           ),
-          ChatInputWidget(
-            receiverUserID: widget.receiverUserID,
-          ),
+          ChatInputWidget(receiverUserID: widget.receiverUserID),
           SizedBox(height: h(context, 25)),
         ],
       ),
@@ -140,23 +170,19 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    var alignment = (data['senderId'] == _firebaseauth.currentUser!.uid)
-        ? Alignment.centerRight
-        : Alignment.centerLeft;
+    bool isCurrentUser = data['senderId'] == _authService.getCurrentUser()!.uid;
+    var alignment =
+        isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Container(
         alignment: alignment,
         child: Column(
-          crossAxisAlignment:
-              (data['senderId'] == _firebaseauth.currentUser!.uid)
-                  ? CrossAxisAlignment.end
-                  : CrossAxisAlignment.start,
           children: [
-            Text(data['senderEmail']),
             SizedBox(height: 5),
             ChatBubble(
               message: data['message'],
+              isCurrentUser: isCurrentUser,
             ),
           ],
         ),
@@ -165,20 +191,24 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget buildMessageList() {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _chatService.getMessages(
-          widget.receiverUserID, _firebaseauth.currentUser!.uid),
+    String senderID = _authService.getCurrentUser()!.uid;
+
+    return StreamBuilder(
+      stream: _chatService.getMessages(senderID, widget.receiverUserID),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
+          return Center(child: Text('Error loading messages.'));
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return Center(child: Text('No messages.'));
+        }
         return ListView(
-          children: snapshot.data!.docs
-              .map((document) => buildMessageItem(document))
-              .toList(),
+          controller: _scrollController,
+          children:
+              snapshot.data!.docs.map((doc) => buildMessageItem(doc)).toList(),
         );
       },
     );

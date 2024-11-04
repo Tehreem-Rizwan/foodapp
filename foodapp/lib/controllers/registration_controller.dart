@@ -26,8 +26,8 @@ class RegistrationController extends GetxController {
         password.isNotEmpty &&
         username.isNotEmpty &&
         isChecked.value) {
-      var user =
-          await _authService.registerWithEmailAndPassword(email, password);
+      var user = await _authService.registerWithEmailAndPassword(
+          email, password, username);
       if (user != null) {
         // Store user information in Firestore
         await _firestore.collection('users').doc(user.uid).set({
