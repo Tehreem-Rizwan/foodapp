@@ -11,7 +11,6 @@ import 'package:foodapp/view/widget/common_image_view_widget.dart';
 import 'package:foodapp/view/widget/custom_menu_section_widget.dart';
 import 'package:foodapp/view/widget/custom_my_orders_widget.dart';
 import 'package:foodapp/view/widget/custom_profile_info_widget.dart';
-import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -24,8 +23,7 @@ class ProfileSettingsScreen extends StatelessWidget {
         _authService.getCurrentUser(); // Use AuthService to get current user
     if (user != null) {
       final profileSnapshot = await FirebaseFirestore.instance
-          .collection(
-              'users') // Collection name must match your Firestore collection
+          .collection('users')
           .doc(user.uid)
           .get();
       return profileSnapshot.data();

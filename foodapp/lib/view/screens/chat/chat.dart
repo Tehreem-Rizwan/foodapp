@@ -18,11 +18,10 @@ class ChatScreen extends StatefulWidget {
   final String receiverEmail;
   final String receiverUserID;
   final String receiverName;
-  ChatScreen({
-    required this.receiverEmail,
-    required this.receiverUserID,
-    required this.receiverName,
-  });
+  ChatScreen(
+      {required this.receiverEmail,
+      required this.receiverUserID,
+      required this.receiverName});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -96,7 +95,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                       CustomText(
                         fontFamily: AppFonts.Inter,
-                        text: widget.receiverName,
+                        text: widget.receiverEmail,
                         size: 16,
                         weight: FontWeight.w600,
                         color: kBlackyColor,
