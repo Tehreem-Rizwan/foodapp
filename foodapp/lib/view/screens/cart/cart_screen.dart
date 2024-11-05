@@ -180,8 +180,11 @@ class _CartScreenState extends State<CartScreen> {
                   textSize: 14,
                   backgroundColor: kTertiaryColor,
                   onTap: () {
+                    List<CartItemModel> selectedItems =
+                        cartItems.where((item) => item.isChecked).toList();
+
                     Get.to(() => DeliveryInfo(
-                        cartItems: cartItems, finalTotal: finalTotal));
+                        cartItems: selectedItems, finalTotal: finalTotal));
                   },
                 ),
               ),

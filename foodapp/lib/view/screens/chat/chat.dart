@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
@@ -30,7 +29,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ChatService _chatService = ChatService();
-  final FirebaseAuth _firebaseauth = FirebaseAuth.instance;
   final AuthService _authService = AuthService();
   FocusNode myFocusNode = FocusNode();
   @override
@@ -95,7 +93,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                       CustomText(
                         fontFamily: AppFonts.Inter,
-                        text: widget.receiverEmail,
+                        text: widget.receiverName,
                         size: 16,
                         weight: FontWeight.w600,
                         color: kBlackyColor,

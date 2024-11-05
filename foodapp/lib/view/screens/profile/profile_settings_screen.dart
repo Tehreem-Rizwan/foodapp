@@ -86,25 +86,15 @@ class ProfileSettingsScreen extends StatelessWidget {
                     cameraImagePath: Assets.imagesCamera,
                   ),
 
-                  // Displaying Orders (Assuming orders are stored in the profile)
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: orders.length,
-                    itemBuilder: (context, index) {
-                      final order = orders[index];
-                      return MyOrders(
-                        orderId: order['orderId'] ?? 'No ID',
-                        itemName: order['itemName'] ?? 'Unknown Item',
-                        itemPrice: '\$${order['itemPrice'] ?? '0.00'}',
-                        itemCount: '${order['itemCount']} items',
-                        onSeeAll: () {
-                          // ); // Replace with your orders page
-                        },
-                      );
+                  MyOrders(
+                    orderId: "888333777",
+                    itemName: AppLocalizations.of(context)!.burgerWithMeat,
+                    itemPrice: '\$12,230',
+                    itemCount: AppLocalizations.of(context)!.items14,
+                    onSeeAll: () {
+                      //Get.to(() => ());
                     },
                   ),
-
                   MenuSection(),
 
                   // Sign Out Button

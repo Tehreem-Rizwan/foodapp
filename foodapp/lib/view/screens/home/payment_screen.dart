@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
-import 'package:foodapp/constants/app_styling.dart';
 import 'package:foodapp/view/screens/cart/cart_item_model.dart';
 import 'package:foodapp/view/widget/Custom_button_widget.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
@@ -131,6 +130,7 @@ class PaymentScreen extends StatelessWidget {
     );
   }
 
+  // Adjusted to display quantity and calculate total price based on quantity
   Widget buildCartItem(CartItemModel item) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
@@ -158,8 +158,14 @@ class PaymentScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 CustomText(
-                  text:
-                      "\$ ${item.price.toStringAsFixed(2)}", // Display price with two decimal points
+                  text: 'Quantity: ${item.quantity}',
+                  size: 14,
+                  weight: FontWeight.w500,
+                  color: kgreyblackColor,
+                ),
+                SizedBox(height: 8),
+                CustomText(
+                  text: "\$ ${(item.price * item.quantity).toStringAsFixed(2)}",
                   size: 14,
                   weight: FontWeight.w700,
                   color: kTertiaryColor,
@@ -172,8 +178,12 @@ class PaymentScreen extends StatelessWidget {
     );
   }
 
+  // Transaction details now correctly account for quantity
   Widget buildTransactionDetails() {
-    double totalPrice = cartItems.fold(0, (sum, item) => sum + item.price);
+    double totalPrice = cartItems.fold(
+      0,
+      (sum, item) => sum + (item.price * item.quantity),
+    );
 
     return Column(
       children: [
@@ -199,12 +209,14 @@ class PaymentScreen extends StatelessWidget {
         'cartItems': cartItems.map((item) {
           return {
             'name': item.name,
+            'quantity': item.quantity, // Added quantity to be stored
             'price': item.price,
             'imagePath': item.imagePath,
           };
         }).toList(),
-        'totalPrice':
-            cartItems.fold(0, (sum, item) => sum + item.price) + 10.00,
+        'totalPrice': cartItems.fold(
+                0, (sum, item) => sum + (item.price * item.quantity)) +
+            10.00,
         'name': name,
         'phone': phone,
         'address': address,

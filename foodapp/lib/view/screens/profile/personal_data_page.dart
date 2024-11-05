@@ -5,7 +5,6 @@ import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
 import 'package:foodapp/constants/app_images.dart';
 import 'package:foodapp/constants/app_styling.dart';
-import 'package:foodapp/view/screens/profile/profile_settings_screen.dart';
 import 'package:foodapp/view/widget/Custom_Textfield_widget.dart';
 import 'package:foodapp/view/widget/Custom_button_widget.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
@@ -60,8 +59,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
         });
       }
 
-      // Update Firestore profile details
-      await FirebaseFirestore.instance.collection('profile').doc(user.uid).set({
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
         'fullname': fullnameController.text,
         'dob': dobController.text,
         'email': emailController.text,
@@ -69,7 +67,6 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
         'imageUrl': imageUrl ?? '',
       }, SetOptions(merge: true));
 
-      // Update Firebase Authentication email
       if (user.email != emailController.text) {
         try {
           await user.updateEmail(emailController.text);
@@ -77,11 +74,9 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
           user = FirebaseAuth.instance.currentUser; // Reload the user
         } catch (error) {
           print("Error updating email: $error");
-          // You may want to show a dialog to handle this case
         }
       }
 
-      // Show a success message or navigate to another page
       Get.snackbar(
         'Success',
         'Profile updated successfully',
@@ -89,8 +84,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
         colorText: Colors.white,
       );
 
-      // Navigate to profile settings screen
-      Get.to(() => ProfileSettingsScreen());
+      Get.back(); // Return to the previous screen
     } else {
       print("User not logged in. Cannot save profile data.");
     }

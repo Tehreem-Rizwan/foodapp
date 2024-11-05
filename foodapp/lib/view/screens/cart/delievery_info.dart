@@ -28,6 +28,41 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
   final TextEditingController _housenoController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
 
+  // Error messages for validation
+  String? _nameError;
+  String? _phoneError;
+  String? _addressError;
+  String? _houseNoError;
+  String? _cityError;
+
+  // Function to validate the form
+  bool _validateForm() {
+    setState(() {
+      _nameError = _nameController.text.isEmpty
+          ? 'This field should not be empty, fill it.'
+          : null;
+      _phoneError = _phonenumberController.text.isEmpty
+          ? 'This field should not be empty, fill it.'
+          : null;
+      _addressError = _addressController.text.isEmpty
+          ? 'This field should not be empty, fill it.'
+          : null;
+      _houseNoError = _housenoController.text.isEmpty
+          ? 'This field should not be empty, fill it.'
+          : null;
+      _cityError = _cityController.text.isEmpty
+          ? 'This field should not be empty, fill it.'
+          : null;
+    });
+
+    // Return true if all fields are valid (no errors)
+    return _nameError == null &&
+        _phoneError == null &&
+        _addressError == null &&
+        _houseNoError == null &&
+        _cityError == null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +115,11 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
               controller: _nameController,
               hintText: AppLocalizations.of(context)!.entername,
             ),
+            if (_nameError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(_nameError!, style: TextStyle(color: Colors.red)),
+              ),
             SizedBox(height: h(context, 20)),
             CustomText(
               text: AppLocalizations.of(context)!.phoneno,
@@ -92,6 +132,11 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
               controller: _phonenumberController,
               hintText: AppLocalizations.of(context)!.enterphoneno,
             ),
+            if (_phoneError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(_phoneError!, style: TextStyle(color: Colors.red)),
+              ),
             SizedBox(height: h(context, 20)),
             CustomText(
               text: AppLocalizations.of(context)!.address,
@@ -104,6 +149,12 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
               controller: _addressController,
               hintText: AppLocalizations.of(context)!.enteraddress,
             ),
+            if (_addressError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child:
+                    Text(_addressError!, style: TextStyle(color: Colors.red)),
+              ),
             SizedBox(height: h(context, 20)),
             CustomText(
               text: "House No.",
@@ -116,6 +167,12 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
               controller: _housenoController,
               hintText: "Enter house no.",
             ),
+            if (_houseNoError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child:
+                    Text(_houseNoError!, style: TextStyle(color: Colors.red)),
+              ),
             SizedBox(height: h(context, 20)),
             CustomText(
               text: "City",
@@ -128,6 +185,11 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
               controller: _cityController,
               hintText: "Enter city",
             ),
+            if (_cityError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(_cityError!, style: TextStyle(color: Colors.red)),
+              ),
             SizedBox(height: h(context, 45)),
             Center(
               child: CustomButton(
@@ -137,16 +199,17 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
                 textSize: 14,
                 backgroundColor: kTertiaryColor,
                 onTap: () {
-                  // Navigate to PaymentScreen with all user data
-                  Get.to(() => PaymentScreen(
-                        cartItems: widget.cartItems,
-                        name: _nameController.text,
-                        address: _addressController.text,
-                        phone: _phonenumberController.text,
-                        houseNo: _housenoController.text,
-                        city: _cityController.text,
-                        finalTotal: widget.finalTotal,
-                      ));
+                  if (_validateForm()) {
+                    Get.to(() => PaymentScreen(
+                          cartItems: widget.cartItems,
+                          name: _nameController.text,
+                          address: _addressController.text,
+                          phone: _phonenumberController.text,
+                          houseNo: _housenoController.text,
+                          city: _cityController.text,
+                          finalTotal: widget.finalTotal,
+                        ));
+                  }
                 },
               ),
             ),

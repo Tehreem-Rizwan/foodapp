@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
@@ -15,8 +13,6 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChatListScreen extends StatelessWidget {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final ChatService _chatService = ChatService();
   final AuthService _authService = Get.put(AuthService());
 
@@ -111,13 +107,35 @@ class ChatListScreen extends StatelessWidget {
 
   Widget buildUserListItem(
       Map<String, dynamic> userData, BuildContext context) {
-    String displayName = userData['username'] ??
-        'Unknown User'; // Fallback if 'username' is null
+    // Ensure displayName always has a value
+    String displayName =
+        userData['username'] ?? 'Unknown User'; // Fallback to 'Unknown User'
+    String lastMessage = userData['lastMessage'] ??
+        ''; // Default to empty string if no last message
+    String lastMessageTime =
+        userData['lastMessageTime'] ?? ''; // Fetch time of last message
+    int unreadCount = userData['unreadCount'] ?? 0; // Dynamic unread count
+    bool isRead = userData['isRead'] ?? false; // Track read status
 
+    // Check if the current user is not the one in userData
     if (userData['email'] != _authService.getCurrentUser()?.email) {
       return UserTile(
-        text: displayName,
+        text:
+            displayName, // Always show the display name (fallback to 'Unknown User' if missing)
+        lastMessage: lastMessage,
+        time: lastMessageTime,
+        unreadCount: unreadCount,
+        showBadge: unreadCount > 0,
+        isRead: isRead,
         onTap: () {
+          // Get the current user's ID
+          String currentUserId = _authService.getCurrentUser()?.uid ?? '';
+
+          // Ensure both userId and otherUserId are valid
+          if (currentUserId.isNotEmpty && userData['uid'] != null) {
+            _chatService.markMessagesAsRead(currentUserId, userData['uid']);
+          }
+
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -131,7 +149,7 @@ class ChatListScreen extends StatelessWidget {
         },
       );
     } else {
-      return Container();
+      return Container(); // Return an empty container for the current user
     }
   }
 }
