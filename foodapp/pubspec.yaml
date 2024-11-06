@@ -58,6 +58,8 @@ dependencies:
   flutter_riverpod: ^2.6.1
   jiffy: ^6.2.1
   firebase_messaging: ^15.1.0
+  app_settings: ^5.1.1
+  flutter_local_notifications: ^18.0.0
 
 
 dev_dependencies:

@@ -9,7 +9,7 @@ import 'package:foodapp/view/screens/nav_bar/bottom_nav_bar.dart';
 import 'package:foodapp/view/screens/home/search/search_foodv2.dart';
 import 'package:foodapp/view/screens/home/search/search_screen.dart';
 import 'package:foodapp/view/screens/profile/profile_settings_screen.dart';
-import 'package:foodapp/view/screens/home/notification.dart';
+import 'package:foodapp/view/screens/home/notification/notification.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
 import 'package:foodapp/view/widget/common_image_view_widget.dart';
 import 'package:foodapp/view/widget/custom_category_list_home.dart';

@@ -1,15 +1,40 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
 import 'package:foodapp/constants/app_images.dart';
 import 'package:foodapp/constants/app_styling.dart';
+import 'package:foodapp/view/screens/home/notification/notification_services.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
 import 'package:foodapp/view/widget/custom_notification_item_widget.dart';
 import 'package:foodapp/view/widget/custom_section_header_notification.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
+  @override
+  State<NotificationScreen> createState() => _NotificationScreenState();
+}
+
+class _NotificationScreenState extends State<NotificationScreen> {
+  NotificationServices notificationServices = NotificationServices();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    notificationServices.requestNotificationPermission();
+    notificationServices.firebaseInit(context);
+    notificationServices.forgroundMessage();
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isTokenRefresh();
+    notificationServices.getDeviceToken().then((value) {
+      if (kDebugMode) {
+        print('device token');
+        print(value);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
