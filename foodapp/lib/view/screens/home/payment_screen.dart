@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
 import 'package:foodapp/view/screens/cart/cart_item_model.dart';
+import 'package:foodapp/view/screens/home/notification/notification_services.dart';
+import 'package:foodapp/view/screens/home/notification/send_notification_service.dart';
 import 'package:foodapp/view/widget/Custom_button_widget.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
 import 'package:foodapp/view/widget/common_image_view_widget.dart';
@@ -121,7 +124,14 @@ class PaymentScreen extends StatelessWidget {
           textSize: 14,
           backgroundColor: kTertiaryColor,
           onTap: () async {
+            SendNotificationService.sendNotificationUsingApi(
+                token:
+                    'fIiVvi_YQiGltOaKO0Zhh1:APA91bGvpEWnO1Zjfh0MPymApIT8O8HRsqeilSDFeleDILbEskalWffWu0lRqsAQoRBrwamnnbwnAZmYJuTOlb7XFkQHqUBpLEmDgLowG9nNxx58-9Y7rlo',
+                title: 'Notification Food App',
+                body: 'Body Notification',
+                data: {"screen": "notification"});
             await _storePaymentDataToFirestore();
+            await _storeNotificationDataToFirestore();
             Get.snackbar(
                 "Success", "Payment data has been saved successfully!");
           },
@@ -130,7 +140,6 @@ class PaymentScreen extends StatelessWidget {
     );
   }
 
-  // Adjusted to display quantity and calculate total price based on quantity
   Widget buildCartItem(CartItemModel item) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
@@ -202,7 +211,7 @@ class PaymentScreen extends StatelessWidget {
 
   Future<void> _storePaymentDataToFirestore() async {
     CollectionReference payments =
-        FirebaseFirestore.instance.collection('payments');
+        FirebaseFirestore.instance.collection('orders');
 
     try {
       await payments.add({
@@ -227,5 +236,33 @@ class PaymentScreen extends StatelessWidget {
     } catch (e) {
       Get.snackbar("Error", "Failed to save payment data: $e");
     }
+  }
+
+  Future<void> _storeNotificationDataToFirestore() async {
+    NotificationServices notificationServices = NotificationServices();
+
+    // Get the current user's UID
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    // Notification data to be stored
+    Map<String, dynamic> notificationData = {
+      'title': 'Payment Successful',
+      'message':
+          'Your payment of \$${(cartItems.fold(0, (sum, item) => sum + (item.price * item.quantity)) + 10.00).toStringAsFixed(2)} has been processed successfully.',
+      'createdAt': FieldValue.serverTimestamp(),
+      'fullPrice':
+          cartItems.fold(0, (sum, item) => sum + (item.price * item.quantity)) +
+              10.00,
+      'isProduct': cartItems.map((item) {
+        return {
+          'productName': item.name,
+        };
+      }).toList(),
+    };
+    await FirebaseFirestore.instance
+        .collection('notification')
+        .doc(uid)
+        .collection('notifications')
+        .add(notificationData);
   }
 }

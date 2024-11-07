@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
 import 'package:foodapp/constants/app_images.dart';
 import 'package:foodapp/constants/app_styling.dart';
 import 'package:foodapp/view/screens/home/notification/notification_services.dart';
+import 'package:foodapp/view/screens/home/notification/send_notification_service.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
 import 'package:foodapp/view/widget/custom_notification_item_widget.dart';
 import 'package:foodapp/view/widget/custom_section_header_notification.dart';
@@ -31,6 +33,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
       if (kDebugMode) {
         print('device token');
         print(value);
+      }
+    });
+    NotificationServices.getAccessToken().then((accessToken) {
+      if (kDebugMode) {
+        print('Access token: $accessToken');
+      }
+    }).catchError((error) {
+      if (kDebugMode) {
+        print('Error fetching access token: $error');
       }
     });
   }
@@ -79,11 +90,23 @@ class _NotificationScreenState extends State<NotificationScreen> {
           children: [
             SizedBox(height: h(context, 20)),
             SectionHeader(title: AppLocalizations.of(context)!.today),
-            NotificationItem(
-              iconPath: Assets.imagesDiscount,
-              title: AppLocalizations.of(context)!.special30Discount,
-              subtitle:
-                  AppLocalizations.of(context)!.specialpromotiononlyvalidtoday,
+            GestureDetector(
+              onTap: () async {
+                EasyLoading.show();
+                SendNotificationService.sendNotificationUsingApi(
+                    token:
+                        'fIiVvi_YQiGltOaKO0Zhh1:APA91bGvpEWnO1Zjfh0MPymApIT8O8HRsqeilSDFeleDILbEskalWffWu0lRqsAQoRBrwamnnbwnAZmYJuTOlb7XFkQHqUBpLEmDgLowG9nNxx58-9Y7rlo',
+                    title: 'Notification Food App',
+                    body: 'Body Notification',
+                    data: {"screen": "notification"});
+                EasyLoading.dismiss();
+              },
+              child: NotificationItem(
+                iconPath: Assets.imagesDiscount,
+                title: AppLocalizations.of(context)!.special30Discount,
+                subtitle: AppLocalizations.of(context)!
+                    .specialpromotiononlyvalidtoday,
+              ),
             ),
             NotificationItem(
               iconPath: Assets.imagesGreentick,
