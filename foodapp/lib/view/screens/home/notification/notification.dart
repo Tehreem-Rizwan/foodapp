@@ -22,7 +22,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
   NotificationServices notificationServices = NotificationServices();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     notificationServices.requestNotificationPermission();
     notificationServices.firebaseInit(context);

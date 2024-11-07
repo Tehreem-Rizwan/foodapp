@@ -35,10 +35,18 @@ class NotificationServices {
     FirebaseMessaging.onMessage.listen((message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
+
       if (kDebugMode) {
-        print(message.notification!.title.toString());
-        print(message.notification!.body.toString());
+        print("notifications title:${notification!.title.toString()}");
+        print("notifications body:${notification.body.toString()}");
+        print('count:${android!.count}');
+        print('data:${message.data.toString()}');
       }
+
+      if (Platform.isIOS) {
+        forgroundMessage();
+      }
+
       if (Platform.isAndroid) {
         initLocalNotifications(context, message);
         showNotification(message);
