@@ -94,7 +94,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 EasyLoading.show();
                 SendNotificationService.sendNotificationUsingApi(
                     token:
-                        'fIiVvi_YQiGltOaKO0Zhh1:APA91bGvpEWnO1Zjfh0MPymApIT8O8HRsqeilSDFeleDILbEskalWffWu0lRqsAQoRBrwamnnbwnAZmYJuTOlb7XFkQHqUBpLEmDgLowG9nNxx58-9Y7rlo',
+                        'eFQgM-wDTVOmV702mzBMrc:APA91bFBjug6lis9X7yU-eZAWMv0XhoZ8l3CXdlDxhCeEyOL6Mo0qjt1aQHbB7NeG_AaQ--75mnL49SoRvRYJfISzujGaad2U3ipwz6LDNmt5cWudqvhcA8',
                     title: 'Notification Food App',
                     body: 'Body Notification',
                     data: {"screen": "notification"});
