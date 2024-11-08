@@ -154,7 +154,7 @@ class _CartScreenState extends State<CartScreen> {
                 ],
               ),
               SizedBox(height: h(context, 16)),
-              PromoCodeWidget(), // Promo code entry section
+              PromoCodeWidget(),
               SizedBox(height: h(context, 24)),
               ...cartItems.map((item) => CartItemWidget(
                     cartItem: item,
@@ -163,7 +163,7 @@ class _CartScreenState extends State<CartScreen> {
                     },
                   )),
               SizedBox(height: h(context, 16)),
-              RecommendedSectionWidget(), // Recommended items section
+              RecommendedSectionWidget(),
               SizedBox(height: h(context, 16)),
               PaymentSummaryWidget(
                 totalItemsCost: totalItemsCost,
