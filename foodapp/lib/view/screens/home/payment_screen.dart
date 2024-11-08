@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
 import 'package:foodapp/view/screens/cart/cart_item_model.dart';
+import 'package:foodapp/view/screens/cart/cart_screen.dart';
 import 'package:foodapp/view/screens/home/notification/notification_services.dart';
 import 'package:foodapp/view/screens/home/notification/send_notification_service.dart';
 import 'package:foodapp/view/widget/Custom_button_widget.dart';
@@ -31,6 +32,7 @@ class PaymentScreen extends StatelessWidget {
     required this.houseNo,
     required this.city,
     required this.finalTotal,
+    required paymentMethod,
   });
 
   @override
@@ -134,6 +136,7 @@ class PaymentScreen extends StatelessWidget {
             await _storeNotificationDataToFirestore();
             Get.snackbar(
                 "Success", "Payment data has been saved successfully!");
+            Get.offAll(() => CartScreen());
           },
         ),
       ),

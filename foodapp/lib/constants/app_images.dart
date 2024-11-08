@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-  
+
   /// Assets for imagesAboutthismenu
   /// assets/images/aboutthismenu.png
   static const String imagesAboutthismenu = "assets/images/aboutthismenu.png";
@@ -12,7 +12,8 @@ class Assets {
 
   /// Assets for imagesAddanotheraccount
   /// assets/images/addanotheraccount.png
-  static const String imagesAddanotheraccount = "assets/images/addanotheraccount.png";
+  static const String imagesAddanotheraccount =
+      "assets/images/addanotheraccount.png";
 
   /// Assets for imagesAgent
   /// assets/images/agent.png
@@ -52,7 +53,8 @@ class Assets {
 
   /// Assets for imagesBurgerwithfries
   /// assets/images/burgerwithfries.png
-  static const String imagesBurgerwithfries = "assets/images/burgerwithfries.png";
+  static const String imagesBurgerwithfries =
+      "assets/images/burgerwithfries.png";
 
   /// Assets for imagesBurgerwithmeat
   /// assets/images/burgerwithmeat.png
@@ -92,7 +94,8 @@ class Assets {
 
   /// Assets for imagesChatlistbackgroundimage
   /// assets/images/chatlistbackgroundimage.png
-  static const String imagesChatlistbackgroundimage = "assets/images/chatlistbackgroundimage.png";
+  static const String imagesChatlistbackgroundimage =
+      "assets/images/chatlistbackgroundimage.png";
 
   /// Assets for imagesChinese
   /// assets/images/chinese.png
@@ -104,7 +107,8 @@ class Assets {
 
   /// Assets for imagesCristopertDastin
   /// assets/images/CristopertDastin.png
-  static const String imagesCristopertDastin = "assets/images/CristopertDastin.png";
+  static const String imagesCristopertDastin =
+      "assets/images/CristopertDastin.png";
 
   /// Assets for imagesCvv
   /// assets/images/cvv.png
@@ -168,7 +172,8 @@ class Assets {
 
   /// Assets for imagesFilledorangestar
   /// assets/images/filledorangestar.png
-  static const String imagesFilledorangestar = "assets/images/filledorangestar.png";
+  static const String imagesFilledorangestar =
+      "assets/images/filledorangestar.png";
 
   /// Assets for imagesGeneral
   /// assets/images/general.png
@@ -204,7 +209,8 @@ class Assets {
 
   /// Assets for imagesIllustrationSuccess
   /// assets/images/IllustrationSuccess.png
-  static const String imagesIllustrationSuccess = "assets/images/IllustrationSuccess.png";
+  static const String imagesIllustrationSuccess =
+      "assets/images/IllustrationSuccess.png";
 
   /// Assets for imagesIndicator
   /// assets/images/indicator.png
@@ -244,15 +250,18 @@ class Assets {
 
   /// Assets for imagesOnboardingscreen1
   /// assets/images/onboardingscreen1.png
-  static const String imagesOnboardingscreen1 = "assets/images/onboardingscreen1.png";
+  static const String imagesOnboardingscreen1 =
+      "assets/images/onboardingscreen1.png";
 
   /// Assets for imagesOnboardingscreen2
   /// assets/images/onboardingscreen2.png
-  static const String imagesOnboardingscreen2 = "assets/images/onboardingscreen2.png";
+  static const String imagesOnboardingscreen2 =
+      "assets/images/onboardingscreen2.png";
 
   /// Assets for imagesOnboardingscreen3
   /// assets/images/onboardingscreen3.png
-  static const String imagesOnboardingscreen3 = "assets/images/onboardingscreen3.png";
+  static const String imagesOnboardingscreen3 =
+      "assets/images/onboardingscreen3.png";
 
   /// Assets for imagesOrdinaryburger
   /// assets/images/ordinaryburger.png
@@ -284,7 +293,8 @@ class Assets {
 
   /// Assets for imagesProfilesettingsicon
   /// assets/images/profilesettingsicon.png
-  static const String imagesProfilesettingsicon = "assets/images/profilesettingsicon.png";
+  static const String imagesProfilesettingsicon =
+      "assets/images/profilesettingsicon.png";
 
   /// Assets for imagesProgress
   /// assets/images/Progress.png
@@ -300,7 +310,8 @@ class Assets {
 
   /// Assets for imagesRecommendedforu1
   /// assets/images/recommendedforu1.png
-  static const String imagesRecommendedforu1 = "assets/images/recommendedforu1.png";
+  static const String imagesRecommendedforu1 =
+      "assets/images/recommendedforu1.png";
 
   /// Assets for imagesRecord
   /// assets/images/record.png
@@ -308,7 +319,8 @@ class Assets {
 
   /// Assets for imagesRequestaccountdeletion
   /// assets/images/requestaccountdeletion.png
-  static const String imagesRequestaccountdeletion = "assets/images/requestaccountdeletion.png";
+  static const String imagesRequestaccountdeletion =
+      "assets/images/requestaccountdeletion.png";
 
   /// Assets for imagesSearch
   /// assets/images/search.png
@@ -316,7 +328,8 @@ class Assets {
 
   /// Assets for imagesSearchIllustration
   /// assets/images/searchIllustration.png
-  static const String imagesSearchIllustration = "assets/images/searchIllustration.png";
+  static const String imagesSearchIllustration =
+      "assets/images/searchIllustration.png";
 
   /// Assets for imagesSelect
   /// assets/images/select.png
@@ -341,10 +354,14 @@ class Assets {
   /// Assets for imagesStar
   /// assets/images/star.png
   static const String imagesStar = "assets/images/star.png";
+  static const String imagesEasypaisa = "assets/images/easypaisa.png";
+
+  static const String imagesJazzcash = "assets/images/jazzcash.png";
 
   /// Assets for imagesStevanoClirover
   /// assets/images/StevanoClirover.png
-  static const String imagesStevanoClirover = "assets/images/StevanoClirover.png";
+  static const String imagesStevanoClirover =
+      "assets/images/StevanoClirover.png";
 
   /// Assets for imagesSubtract
   /// assets/images/subtract.png
@@ -382,4 +399,3 @@ class Assets {
   /// assets/images/whatsapp.png
   static const String imagesWhatsapp = "assets/images/whatsapp.png";
 }
-

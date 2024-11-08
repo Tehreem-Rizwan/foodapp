@@ -3,7 +3,7 @@ import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
 import 'package:foodapp/constants/app_styling.dart';
 import 'package:foodapp/view/screens/cart/cart_item_model.dart';
-import 'package:foodapp/view/screens/home/payment_screen.dart';
+import 'package:foodapp/view/screens/cart/payment_method_screen.dart';
 import 'package:foodapp/view/widget/Custom_Textfield_widget.dart';
 import 'package:foodapp/view/widget/Custom_button_widget.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
@@ -28,7 +28,6 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
   final TextEditingController _housenoController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
 
-  // Error messages for validation
   String? _nameError;
   String? _phoneError;
   String? _addressError;
@@ -55,7 +54,6 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
           : null;
     });
 
-    // Return true if all fields are valid (no errors)
     return _nameError == null &&
         _phoneError == null &&
         _addressError == null &&
@@ -200,14 +198,8 @@ class _DeliveryInfoState extends State<DeliveryInfo> {
                 backgroundColor: kTertiaryColor,
                 onTap: () {
                   if (_validateForm()) {
-                    Get.to(() => PaymentScreen(
+                    Get.to(() => PaymentMethodScreen(
                           cartItems: widget.cartItems,
-                          name: _nameController.text,
-                          address: _addressController.text,
-                          phone: _phonenumberController.text,
-                          houseNo: _housenoController.text,
-                          city: _cityController.text,
-                          finalTotal: widget.finalTotal,
                         ));
                   }
                 },

@@ -64,6 +64,7 @@ dependencies:
   googleapis: ^13.1.0
   googleapis_auth: ^1.6.0
   flutter_easyloading: ^3.0.5
+  crypto: ^3.0.3
 
 
 dev_dependencies:
