@@ -143,7 +143,7 @@ class _CartScreenState extends State<CartScreen> {
                         width: w(context, 109),
                         buttonText:
                             AppLocalizations.of(context)!.changelocation,
-                        textSize: 12,
+                        textSize: 10,
                         backgroundColor: kTransparentColor,
                         onTap: () {
                           Get.to(() => DeliveryOrderScreen());
