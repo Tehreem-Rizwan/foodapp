@@ -67,7 +67,6 @@ class _JazzCashState extends State<JazzCash> {
           "&" +
           mpf1;
 
-      // Generating HMAC-SHA256 hash
       var key = utf8.encode(integritySalt);
       var bytes = utf8.encode(superdata);
       var hmacSha256 = Hmac(sha256, key); // HMAC-SHA256

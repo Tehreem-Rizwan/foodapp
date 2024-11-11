@@ -49,8 +49,7 @@ class MyApp extends StatelessWidget {
         builder: (context, provider, child) {
           return GetMaterialApp(
             defaultTransition: Transition.fadeIn,
-            locale: provider.appLocale ??
-                initialLocale, // Use the locale from the provider
+            locale: provider.appLocale ?? initialLocale,
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

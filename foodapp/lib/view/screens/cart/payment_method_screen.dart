@@ -5,7 +5,7 @@ import 'package:foodapp/constants/app_images.dart';
 import 'package:foodapp/constants/app_styling.dart';
 import 'package:foodapp/controllers/payment_method_controller.dart';
 import 'package:foodapp/view/screens/cart/cart_item_model.dart';
-import 'package:foodapp/view/screens/home/payment_screen.dart';
+import 'package:foodapp/view/screens/cart/easy_paisa_page.dart';
 import 'package:foodapp/view/widget/Custom_button_widget.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
 import 'package:foodapp/view/widget/custom_payment_option_tile.dart';
@@ -13,9 +13,10 @@ import 'package:get/get.dart';
 import 'package:foodapp/view/screens/cart/jazzcash.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
+  final double finalTotal;
   final List<CartItemModel> cartItems;
 
-  PaymentMethodScreen({required this.cartItems});
+  PaymentMethodScreen({required this.cartItems, required this.finalTotal});
 
   @override
   _PaymentMethodScreenState createState() => _PaymentMethodScreenState();
@@ -117,18 +118,10 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 onTap: () {
                   if (controller.selectedMethod.value == 'Jazzcash') {
                     Get.to(() => JazzCash());
+                  } else if (controller.selectedMethod.value == 'Easypaisa') {
+                    Get.to(() => EasypaisaScreen());
                   } else {
-                    // Navigate to your Easypaisa payment screen or continue with your existing PaymentScreen
-                    Get.to(() => PaymentScreen(
-                          cartItems: widget.cartItems,
-                          name: _nameController.text,
-                          address: _addressController.text,
-                          phone: _phoneController.text,
-                          houseNo: _houseNoController.text,
-                          city: _cityController.text,
-                          finalTotal: _calculateTotal(widget.cartItems),
-                          paymentMethod: controller.selectedMethod.value,
-                        ));
+                    print('Error: No payment method selected');
                   }
                 },
                 buttonText: "PROCEED TO PAY",
