@@ -8,28 +8,70 @@ import 'package:foodapp/view/widget/custom_delievery_time_widget.dart';
 import 'package:foodapp/view/widget/custom_driver_info_widget.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
-class DeliveryOrderScreen extends StatelessWidget {
+class DeliveryOrderScreen extends StatefulWidget {
+  @override
+  _DeliveryOrderScreenState createState() => _DeliveryOrderScreenState();
+}
+
+class _DeliveryOrderScreenState extends State<DeliveryOrderScreen> {
+  GoogleMapController? _mapController;
+  LatLng _initialPosition =
+      LatLng(37.7749, -122.4194); // Default location (San Francisco)
+  LatLng? _riderLocation;
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
+
+  Future<void> _getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      _riderLocation = LatLng(position.latitude, position.longitude);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSecondaryColor,
       body: Stack(
         children: [
-          CommonImageView(
-              imagePath: Assets.imagesMapsicleMap,
-              fit: BoxFit.contain,
-              width: double.infinity,
-              height: 532),
+          _riderLocation == null
+              ? Center(child: CircularProgressIndicator())
+              : GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: _riderLocation!,
+                    zoom: 14,
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    _mapController = controller;
+                  },
+                  markers: {
+                    if (_riderLocation != null)
+                      Marker(
+                        markerId: MarkerId('rider'),
+                        position: _riderLocation!,
+                        infoWindow: InfoWindow(title: 'Rider'),
+                        icon: BitmapDescriptor.defaultMarkerWithHue(
+                            BitmapDescriptor.hueOrange),
+                      ),
+                  },
+                ),
           SafeArea(
             child: Column(
               children: [
                 Padding(
-                  padding: symmetric(context, horizontal: 20, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   child: Row(
                     children: [
                       Container(
-                        padding: all(context, 8),
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           color: kTertiaryColor,
                           shape: BoxShape.circle,
@@ -45,7 +87,7 @@ class DeliveryOrderScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(width: w(context, 70)),
+                      SizedBox(width: 70),
                       CustomText(
                         text: AppLocalizations.of(context)!.delieverdyourorder,
                         size: 16,
@@ -55,7 +97,7 @@ class DeliveryOrderScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Spacer(),
+                Spacer(),
                 DriverInfoWidget(
                   driverName: AppLocalizations.of(context)!.cristopertDastin,
                   driverId: '213752',

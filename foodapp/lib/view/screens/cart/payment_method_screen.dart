@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
 import 'package:foodapp/constants/app_images.dart';
-import 'package:foodapp/constants/app_styling.dart';
 import 'package:foodapp/controllers/payment_method_controller.dart';
 import 'package:foodapp/view/screens/cart/cart_item_model.dart';
 import 'package:foodapp/view/screens/cart/easy_paisa_page.dart';
+import 'package:foodapp/view/screens/cart/jazzcash.dart';
 import 'package:foodapp/view/widget/Custom_button_widget.dart';
 import 'package:foodapp/view/widget/Custom_text_widget.dart';
 import 'package:foodapp/view/widget/custom_payment_option_tile.dart';
 import 'package:get/get.dart';
-import 'package:foodapp/view/screens/cart/jazzcash.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
   final double finalTotal;
@@ -49,22 +48,15 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
         backgroundColor: kTransparentColor,
         elevation: 0,
         leading: Padding(
-          padding: only(context, left: 20),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: kWhite12Color),
-            ),
-            child: InkWell(
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: kPrimaryColor,
-                size: 16,
-              ),
-              onTap: () {
-                Get.back();
-              },
+          padding: const EdgeInsets.only(left: 20),
+          child: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: const Icon(
+              Icons.arrow_back_ios,
+              color: kPrimaryColor,
+              size: 16,
             ),
           ),
         ),
@@ -103,44 +95,45 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 )),
             const SizedBox(height: 10),
             Obx(() => OptionTile(
-                  isSelected: controller.selectedMethod.value == 'Jazzcash',
-                  text: 'Jazzcash \n03372873909',
+                  isSelected: controller.selectedMethod.value == 'JazzCash',
+                  text: 'JazzCash \n03372873909',
                   assetPath: Assets.imagesJazzcash,
                   onTap: () {
-                    controller.selectMethod('Jazzcash');
+                    controller.selectMethod('JazzCash');
                   },
                 )),
-            const SizedBox(height: 52),
-            Center(
-              child: CustomButton(
-                width: 334,
-                textSize: 16,
-                onTap: () {
-                  if (controller.selectedMethod.value == 'Jazzcash') {
-                    Get.to(() => JazzCash());
-                  } else if (controller.selectedMethod.value == 'Easypaisa') {
-                    Get.to(() => EasypaisaScreen());
-                  } else {
-                    print('Error: No payment method selected');
-                  }
-                },
-                buttonText: "PROCEED TO PAY",
-                backgroundColor: kTertiaryColor,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-                textColor: kSecondaryColor,
-                height: 52,
-              ),
-            )
+            const SizedBox(height: 20),
+            CustomButton(
+              height: 52,
+              width: double.infinity,
+              buttonText: 'Proceed to Checkout',
+              backgroundColor: kTertiaryColor,
+              textSize: 14,
+              onTap: () {
+                if (controller.selectedMethod.value.isEmpty) {
+                  Get.snackbar(
+                    "Error",
+                    "Please select a payment method",
+                    backgroundColor: kRedColor,
+                    colorText: kSecondaryColor,
+                  );
+                  return;
+                }
+                // Navigate to the appropriate payment page
+                if (controller.selectedMethod.value == 'Easypaisa') {
+                  Get.to(() => EasypaisaScreen(
+                        cartItems: widget.cartItems,
+                        amount: widget.finalTotal
+                            .toString(), // Pass the dynamic amount
+                      ));
+                } else if (controller.selectedMethod.value == 'JazzCash') {
+                  Get.to(() => JazzCash());
+                }
+              },
+            ),
           ],
         ),
       ),
     );
-  }
-
-  double _calculateTotal(List<CartItemModel> cartItems) {
-    return cartItems.fold(
-            0, (sum, item) => sum + (item.price * item.quantity)) +
-        10.0;
   }
 }

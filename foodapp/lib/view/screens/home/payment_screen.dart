@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodapp/constants/app_colors.dart';
 import 'package:foodapp/constants/app_fonts.dart';
 import 'package:foodapp/view/screens/cart/cart_item_model.dart';
-import 'package:foodapp/view/screens/cart/cart_screen.dart';
 import 'package:foodapp/view/screens/cart/payment_method_screen.dart';
 import 'package:foodapp/view/screens/home/notification/notification_services.dart';
 import 'package:foodapp/view/screens/home/notification/send_notification_service.dart';
@@ -126,14 +125,7 @@ class PaymentScreen extends StatelessWidget {
           textSize: 14,
           backgroundColor: kTertiaryColor,
           onTap: () async {
-            SendNotificationService.sendNotificationUsingApi(
-                token:
-                    'eFQgM-wDTVOmV702mzBMrc:APA91bFBjug6lis9X7yU-eZAWMv0XhoZ8l3CXdlDxhCeEyOL6Mo0qjt1aQHbB7NeG_AaQ--75mnL49SoRvRYJfISzujGaad2U3ipwz6LDNmt5cWudqvhcA8',
-                title: 'check out',
-                body: 'your order is on the way wait for few minutes',
-                data: {"screen": "notification"});
             await _storePaymentDataToFirestore();
-            await _storeNotificationDataToFirestore();
             Get.snackbar(
                 "Success", "Payment data has been saved successfully!");
             Get.to(() => PaymentMethodScreen(

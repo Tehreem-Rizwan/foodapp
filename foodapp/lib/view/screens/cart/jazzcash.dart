@@ -1,5 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:foodapp/constants/app_colors.dart';
+import 'package:foodapp/constants/app_fonts.dart';
+import 'package:foodapp/view/widget/Custom_button_widget.dart';
+import 'package:foodapp/view/widget/Custom_text_widget.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart'; // for HMAC-SHA256
 
@@ -15,7 +20,7 @@ class _JazzCashState extends State<JazzCash> {
     try {
       String transactionRef =
           "T" + DateTime.now().millisecondsSinceEpoch.toString();
-      String amount = "10000"; // Amount in Paisa (10000 = 100.00 PKR)
+      String amount = "10000";
       String billReference = "billref";
       String description = "Description of transaction";
       String language = "EN";
@@ -113,11 +118,41 @@ class _JazzCashState extends State<JazzCash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("JazzCash Payment")),
+      appBar: AppBar(
+        backgroundColor: kTransparentColor,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: const Icon(
+              Icons.arrow_back_ios,
+              color: kPrimaryColor,
+              size: 16,
+            ),
+          ),
+        ),
+        title: CustomText(
+          text: "JazzCash Payment",
+          color: kBlackyColor,
+          size: 16,
+          fontFamily: AppFonts.Inter,
+          weight: FontWeight.bold,
+        ),
+        centerTitle: true,
+      ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: payment,
-          child: Text("Proceed with JazzCash"),
+        child: CustomButton(
+          height: 52,
+          width: 327,
+          buttonText: "Proceed with JazzCash",
+          textSize: 14,
+          backgroundColor: kTertiaryColor,
+          onTap: () {
+            payment;
+          },
         ),
       ),
     );
