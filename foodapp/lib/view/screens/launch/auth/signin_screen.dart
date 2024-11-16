@@ -15,6 +15,7 @@ import 'package:foodapp/view/widget/custom_social_button_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SigninScreen extends StatefulWidget {
   final String userEmail;
@@ -232,24 +233,24 @@ class _SigninScreenState extends State<SigninScreen> {
                   SocialButton(
                     asset: Assets.imagesGoogle,
                     onTap: () async {
-                      //  try {
-                      //   final GoogleSignInAccount? googleUser =
-                      //       await GoogleSignIn().signIn();
-                      //   if (googleUser != null) {
-                      //     final GoogleSignInAuthentication googleAuth =
-                      //         await googleUser.authentication;
-                      //     final AuthCredential credential =
-                      //         GoogleAuthProvider.credential(
-                      //       accessToken: googleAuth.accessToken,
-                      //       idToken: googleAuth.idToken,
-                      //     );
-                      //     await _auth.signInWithCredential(credential);
-                      //     Get.to(() => HomePage());
-                      //   }
-                      // } catch (e) {
-                      //   Get.snackbar("Error", "Google sign-in failed",
-                      //       backgroundColor: kRedColor);
-                      // }
+                      try {
+                        final GoogleSignInAccount? googleUser =
+                            await GoogleSignIn().signIn();
+                        if (googleUser != null) {
+                          final GoogleSignInAuthentication googleAuth =
+                              await googleUser.authentication;
+                          final AuthCredential credential =
+                              GoogleAuthProvider.credential(
+                            accessToken: googleAuth.accessToken,
+                            idToken: googleAuth.idToken,
+                          );
+                          await _auth.signInWithCredential(credential);
+                          Get.to(() => HomePage());
+                        }
+                      } catch (e) {
+                        Get.snackbar("Error", "Google sign-in failed",
+                            backgroundColor: kRedColor);
+                      }
                     },
                   ),
                   SizedBox(width: w(context, 20)),

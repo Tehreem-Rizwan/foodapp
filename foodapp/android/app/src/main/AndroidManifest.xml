@@ -4,10 +4,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-feature android:name="android.hardware.location.gps" />
+
 
     <application
         android:label="foodapp"
@@ -46,6 +49,9 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="high_importance_channel" />
+             <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDFTbbWyhdVvTSTYTi4Os-LHr2lYrfbyxg" />
 
         <!-- flutter_local_notifications receiver for boot events -->
         <receiver 
