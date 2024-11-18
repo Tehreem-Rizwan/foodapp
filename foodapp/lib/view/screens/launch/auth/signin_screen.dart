@@ -244,12 +244,13 @@ class _SigninScreenState extends State<SigninScreen> {
                             accessToken: googleAuth.accessToken,
                             idToken: googleAuth.idToken,
                           );
-                          await _auth.signInWithCredential(credential);
+                          await FirebaseAuth.instance
+                              .signInWithCredential(credential);
+                          print('Google Sign-In successful');
                           Get.to(() => HomePage());
                         }
                       } catch (e) {
-                        Get.snackbar("Error", "Google sign-in failed",
-                            backgroundColor: kRedColor);
+                        print('Google Sign-In failed: $e');
                       }
                     },
                   ),
