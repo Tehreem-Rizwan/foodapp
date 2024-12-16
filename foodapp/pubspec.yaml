@@ -71,6 +71,8 @@ dependencies:
   geolocator: ^12.0.0
   flutter_polyline_points: ^2.1.0
   dio: ^5.7.0
+  flutter_launcher_icons: ^0.14.2
+  icons_launcher: ^3.0.0
   
 
 dev_dependencies:

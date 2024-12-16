@@ -10,10 +10,12 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-feature android:name="android.hardware.location.gps" />
+        <uses-permission android:name="android.permission.INTERNET"/>
+
 
 
     <application
-        android:label="foodapp"
+        android:label="Food App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
