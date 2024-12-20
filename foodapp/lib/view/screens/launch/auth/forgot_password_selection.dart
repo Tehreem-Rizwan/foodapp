@@ -21,14 +21,13 @@ class ForgotPasswordSelection extends StatefulWidget {
 }
 
 class _ForgotPasswordSelectionState extends State<ForgotPasswordSelection> {
-  String? selectedOption = 'WhatsApp';
+  String? selectedOption = 'Send via SMS';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kSecondaryColor,
       body: SingleChildScrollView(
-        // Added SingleChildScrollView here
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +53,7 @@ class _ForgotPasswordSelectionState extends State<ForgotPasswordSelection> {
             OptionWidget(
               iconPath: Assets.imagesWhatsapp,
               title: AppLocalizations.of(context)!.sendviaWhatsApp,
-              subtitle: '+12 8347 2838 28',
+              subtitle: '',
               selected:
                   selectedOption == AppLocalizations.of(context)!.whatsApp,
               onTap: () {
@@ -74,6 +73,17 @@ class _ForgotPasswordSelectionState extends State<ForgotPasswordSelection> {
                 });
               },
             ),
+            OptionWidget(
+              iconPath: Assets.imagesWhatsapp,
+              title: "Send Via SMS",
+              subtitle: 'Your phone number',
+              selected: selectedOption == 'Send via SMS',
+              onTap: () {
+                setState(() {
+                  selectedOption = 'Send via SMS';
+                });
+              },
+            ),
             SizedBox(height: h(context, 40)),
             Center(
               child: CustomButton(
@@ -83,7 +93,15 @@ class _ForgotPasswordSelectionState extends State<ForgotPasswordSelection> {
                 textSize: 14,
                 backgroundColor: kTertiaryColor,
                 onTap: () {
-                  if (selectedOption == AppLocalizations.of(context)!.email) {
+                  if (selectedOption == 'Send via SMS') {
+                    //  Navigator.push(
+                    // context,
+                    // MaterialPageRoute(
+                    //   builder: (context) => PhoneNumberScreen(), // Navigate to PhoneNumberScreen
+                    // ),
+                    //  );
+                  } else if (selectedOption ==
+                      AppLocalizations.of(context)!.email) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(

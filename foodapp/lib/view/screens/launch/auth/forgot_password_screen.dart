@@ -27,8 +27,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     await _sendOtpToEmail(email, otp);
 
     Get.to(() => OtpVerificationPage(
-          otp: otp,
-          email: email,
+          verificationId: otp,
+          phoneNumber: email,
         ));
   }
 
